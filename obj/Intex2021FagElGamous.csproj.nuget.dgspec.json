@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/Intex2021FagElGamous.csproj": {}
+    "C:\\Users\\jenna\\Downloads\\intexparty\\Intex2021FagElGamous\\Intex2021FagElGamous.csproj": {}
   },
   "projects": {
-    "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/Intex2021FagElGamous.csproj": {
+    "C:\\Users\\jenna\\Downloads\\intexparty\\Intex2021FagElGamous\\Intex2021FagElGamous.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/Intex2021FagElGamous.csproj",
+        "projectUniqueName": "C:\\Users\\jenna\\Downloads\\intexparty\\Intex2021FagElGamous\\Intex2021FagElGamous.csproj",
         "projectName": "Intex2021FagElGamous",
-        "projectPath": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/Intex2021FagElGamous.csproj",
-        "packagesPath": "/Users/trevorschmidt/.nuget/packages/",
-        "outputPath": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/",
+        "projectPath": "C:\\Users\\jenna\\Downloads\\intexparty\\Intex2021FagElGamous\\Intex2021FagElGamous.csproj",
+        "packagesPath": "C:\\Users\\jenna\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jenna\\Downloads\\intexparty\\Intex2021FagElGamous\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/trevorschmidt/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\jenna\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -77,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }
