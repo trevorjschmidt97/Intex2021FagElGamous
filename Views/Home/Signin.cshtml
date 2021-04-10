@@ -3,54 +3,57 @@
 }
 @model SigninViewModel
 
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>@ViewData["Title"]</h1>
 
-<h1>@ViewData["Title"]</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <section>
+                    <form asp-action="Signin" method="post">
+                        <hr />
 
-<div class="row">
-    <div class="col-md-6">
-        <section>
-            <form asp-action="Signin" method="post">
-                <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
 
-                <div asp-validation-summary="All" class="text-danger"></div>
-
-                @*public string UserId { get; set; }
-                public string Email { get; set; }
-                public string PassHash { get; set; }
-                public string PassSalt { get; set; }
-                public long PassIterations { get; set; }
-                public string FirstName { get; set; }
-                public string LastName { get; set; }
-                public string Role { get; set; }
-                }*@
+                        @*public string UserId { get; set; }
+                            public string Email { get; set; }
+                            public string PassHash { get; set; }
+                            public string PassSalt { get; set; }
+                            public long PassIterations { get; set; }
+                            public string FirstName { get; set; }
+                            public string LastName { get; set; }
+                            public string Role { get; set; }
+                            }*@
 
 
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                </div>
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                        </div>
 
-                <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" type="password" />
-                </div>
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password" class="form-control" type="password" />
+                        </div>
 
-                @if (Model.Message != null)
-                {
-                    <p>@Model.Message</p>
-                }
+                        @if (Model.Message != null)
+                        {
+                            <p>@Model.Message</p>
+                        }
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Log in</button>
+                        </div>
 
-                <div class="form-group">
-                    <p>
-                        <a asp-area="" asp-controller="Home" asp-action="Register" >Register as a new user</a>
-                    </p>
-                </div>
+                        <div class="form-group">
+                            <p>
+                                <a asp-area="" asp-controller="Home" asp-action="Register">Register as a new user</a>
+                            </p>
+                        </div>
 
-            </form>
-        </section>
-    </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </main>
 </div>
