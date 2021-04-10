@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Intex2021FagElGamous.Models;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace Intex2021FagElGamous.Controllers
 {
@@ -57,7 +58,70 @@ namespace Intex2021FagElGamous.Controllers
 
         public IActionResult ViewBurials()
         {
-            return View();
+            ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
+
+
+            // Create a list of burials,
+            // but not the normal ones, just with the info we want to see
+            List<ViewBurialsBurialModel> vbbmList = new List<ViewBurialsBurialModel>();
+
+            // for each burial in our db
+            foreach (Burial b in context.Burials)
+            {
+                // create a burials model
+                ViewBurialsBurialModel vbbm = new ViewBurialsBurialModel();
+
+                // grab it's burial number
+                int BurialNumber = (int)b.BurialNumber;
+                string OsteologyNotes = null;
+                if (!(b.OsteologyNotes is null))
+                {
+                    OsteologyNotes = b.OsteologyNotes.ToString();
+                }
+
+
+                string NS = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().NS.ToString();
+
+                int NSTop = (int)context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Nstop;
+
+                int NSBottom = NSTop + 10;
+
+                string EW = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().EW.ToString();
+
+                int EWTop = (int)context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Ewtop;
+
+                int EWBottom = EWTop + 10;
+
+                string Quadrant = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Quadrant.ToString();
+
+
+                // add all the info to the vbbm
+                vbbm.BurialNumber = BurialNumber;
+                vbbm.NS = NS;
+                vbbm.NSTop = NSTop;
+                vbbm.NSBottom = NSBottom;
+                vbbm.EW = EW;
+                vbbm.EWTop = EWTop;
+                vbbm.EWBottom = EWBottom;
+                vbbm.Quadrant = Quadrant;
+                vbbm.OsteologyNotes = OsteologyNotes;
+
+                vbbmList.Add(vbbm);
+            }
+            viewModel.Burials = vbbmList;
+
+
+            return View(viewModel);
         }
 
         public IActionResult AddBurial()
