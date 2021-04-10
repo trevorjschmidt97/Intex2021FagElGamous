@@ -1176,32 +1176,31 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.EntityFrameworkCore >= 5.0.5",
+      "Microsoft.EntityFrameworkCore.Analyzers >= 5.0.5",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.5",
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.5"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jenna\\.nuget\\packages\\": {}
+    "/Users/trevorschmidt/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jenna\\Downloads\\intexparty\\Intex2021FagElGamous\\Intex2021FagElGamous.csproj",
+      "projectUniqueName": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/Intex2021FagElGamous.csproj",
       "projectName": "Intex2021FagElGamous",
-      "projectPath": "C:\\Users\\jenna\\Downloads\\intexparty\\Intex2021FagElGamous\\Intex2021FagElGamous.csproj",
-      "packagesPath": "C:\\Users\\jenna\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jenna\\Downloads\\intexparty\\Intex2021FagElGamous\\obj\\",
+      "projectPath": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/Intex2021FagElGamous.csproj",
+      "packagesPath": "/Users/trevorschmidt/.nuget/packages/",
+      "outputPath": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jenna\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/trevorschmidt/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1221,6 +1220,10 @@
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[5.0.5, )"
+          },
+          "Microsoft.EntityFrameworkCore.Analyzers": {
             "target": "Package",
             "version": "[5.0.5, )"
           },
@@ -1259,7 +1262,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
       }
     }
   }
