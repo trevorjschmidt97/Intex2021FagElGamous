@@ -75,3 +75,8 @@
 /Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.dll
 /Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.pdb
 /Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.genruntimeconfig.cache
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddBurial.cshtml.g.cs
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/Admin.cshtml.g.cs
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/ViewBurials.cshtml.g.cs
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/Register.cshtml.g.cs
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/Signin.cshtml.g.cs

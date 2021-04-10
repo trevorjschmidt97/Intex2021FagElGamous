@@ -21,17 +21,35 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewBurials">View Burials</a>
                         </li>
-                        @if (GlobalStatic.userID is null)
+
+                        @if (GlobalStatic.userID is null) //If user is no signed in
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Signin">Signin</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                            </li>
                         }
-                        @if (!(GlobalStatic.userID is null))
+                        @if (!(GlobalStatic.userID is null)) // If user is signed in
                         {
+                            @if (GlobalStatic.role == "admin" || GlobalStatic.role == "researcher")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddBurial">AddBurial</a>
+                                </li>
+                            }
+                            @if (GlobalStatic.role == "admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
+                                </li>
+                            }
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                             </li>
@@ -49,7 +67,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Intex2021FagElGamous - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - Intex2021FagElGamous
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
