@@ -116,6 +116,8 @@ namespace Intex2021FagElGamous.Controllers
                 vbbm.Quadrant = Quadrant;
                 vbbm.OsteologyNotes = OsteologyNotes;
 
+
+
                 vbbmList.Add(vbbm);
             }
             viewModel.Burials = vbbmList;

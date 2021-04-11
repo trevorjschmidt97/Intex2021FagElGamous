@@ -2,29 +2,22 @@
     ViewData["Title"] = "Home Page";
 }
 
-
-<header>
-
-
+<div class="container">
     <div id="carouselExampleIndicators" class="carousel slide">
         <div class="carousel-inner" role="listbox">
             <!-- Slide One - Set the background image for this slide in the line below -->
-            <div class="carousel-item active" style="background-image: url('frontpage.png')">
+            <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1592488831514-7eccdf7c35a2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80') ">
                 <div class="carousel-caption d-none d-md-block">
-
-                    <h3>First Slide</h3>
-                    <p>This is a description for the first slide.</p>
+                    <form asp-action="ViewBurials" method="get">
+                        <button class="btn btn-dark">
+                            View Burials
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
 
     </div>
-</header>
-
-<!-- Page Content -->
-<div class="container">
-
-    <h1 class="my-4">Welcome to Modern Business</h1>
 
     <!-- Marketing Icons Section -->
     <div class="row">
@@ -35,7 +28,7 @@
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Learn More</a>
+                    <a href="#" class="btn btn-dark">Learn More</a>
                 </div>
             </div>
         </div>
@@ -46,7 +39,7 @@
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Learn More</a>
+                    <a href="#" class="btn btn-dark">Learn More</a>
                 </div>
             </div>
         </div>
@@ -57,7 +50,7 @@
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Learn More</a>
+                    <a href="#" class="btn btn-dark">Learn More</a>
                 </div>
             </div>
         </div>

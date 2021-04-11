@@ -24,3 +24,9 @@ body {
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
     width: 100%;
 }
+
+.btn {
+    color: #fff;
+    background-color: #bc9055;
+    border-color: #bc9055;
+}
