@@ -42,19 +42,22 @@
                     }
                     @if (!(GlobalStatic.userID is null)) // If user is signed in
                     {
-                        @if (GlobalStatic.role == "admin" || GlobalStatic.role == "researcher")
+                        @if (GlobalStatic.role == "Admin" || GlobalStatic.role == "Researcher")
                         {
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="" asp-controller="Home" asp-action="AddBurial">Add Burial</a>
                             </li>
                         }
-                        @if (GlobalStatic.role == "admin")
+                        @if (GlobalStatic.role == "Admin")
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
                             </li>
                         }
 
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile">Welcome @GlobalStatic.FirstName!</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                         </li>

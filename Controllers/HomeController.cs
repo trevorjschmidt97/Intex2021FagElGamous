@@ -9,6 +9,7 @@ using Intex2021FagElGamous.Models;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
+using Intex2021FagElGamous.ViewModels;
 
 namespace Intex2021FagElGamous.Controllers
 {
@@ -126,13 +127,229 @@ namespace Intex2021FagElGamous.Controllers
             return View(viewModel);
         }
 
+        // ------------------------------ Resricted Section--------------------
         public IActionResult AddBurial()
         {
+            if (GlobalStatic.role != "Admin" || GlobalStatic.role != "Researcher")
+            {
+                return View("Index");
+            }
             return View();
         }
 
         public IActionResult Admin()
         {
+            if (GlobalStatic.role != "Admin")
+            {
+                return View("Index");
+            }
+            return View();
+        }
+
+        // ------------------------------- Profile stuff -----------------------
+        public IActionResult Profile()
+        {
+            ProfileViewModel p = new ProfileViewModel
+            {
+                FirstName = GlobalStatic.FirstName,
+                LastName = GlobalStatic.LastName,
+                Role = GlobalStatic.role,
+                Email = GlobalStatic.Email
+            };
+            return View(p);
+        }
+
+        [HttpGet]
+        public IActionResult ResetEmail()
+        {
+            if (GlobalStatic.userID == null)
+            {
+                return View("Index");
+            }
+            ResetEmailViewModel revm = new ResetEmailViewModel
+            {
+                Email = GlobalStatic.Email
+            };
+                
+            return View(revm);
+        }
+
+        [HttpPost]
+        public IActionResult ResetEmail(ResetEmailViewModel r)
+        {
+            if (GlobalStatic.userID == null)
+            {
+                return View("Index");
+            }
+
+            List<User> Users = context.Users.ToList();
+
+            foreach (User user in Users)
+            {
+                if (user.UserId == GlobalStatic.userID)
+                {
+                    // this is the right user to update
+                    Console.WriteLine("this is inside the right user");
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+
+                    user.Email = r.Email;
+                    context.Users.Add(user);
+                    context.SaveChanges();
+
+                    GlobalStatic.Email = r.Email;
+
+                    return View("Profile", new ProfileViewModel
+                    {
+                        FirstName = GlobalStatic.FirstName,
+                        LastName = GlobalStatic.LastName,
+                        Role = GlobalStatic.role,
+                        Email = GlobalStatic.Email
+                    });
+                }
+            }
+
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult ResetUserInfo()
+        {
+            if (GlobalStatic.userID == null)
+            {
+                return View("Index");
+            }
+
+            ResetUserInfoViewModel r = new ResetUserInfoViewModel
+            {
+                FirstName = GlobalStatic.FirstName,
+                LastName = GlobalStatic.LastName
+            };
+
+            return View(r);
+        }
+
+        [HttpPost]
+        public IActionResult ResetUserInfo(ResetUserInfoViewModel r)
+        {
+            if (GlobalStatic.userID == null)
+            {
+                return View("Index");
+            }
+
+            List<User> Users = context.Users.ToList();
+
+            foreach (User user in Users)
+            {
+                if (user.UserId == GlobalStatic.userID)
+                {
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+
+                    user.FirstName = r.FirstName;
+                    user.LastName = r.LastName;
+                    context.Users.Add(user);
+                    context.SaveChanges();
+
+                    GlobalStatic.FirstName = r.FirstName;
+                    GlobalStatic.LastName = r.LastName;
+
+                    return View("Profile", new ProfileViewModel
+                    {
+                        FirstName = GlobalStatic.FirstName,
+                        LastName = GlobalStatic.LastName,
+                        Role = GlobalStatic.role,
+                        Email = GlobalStatic.Email
+                    });
+                }
+            }
+            return View("Profile", new ProfileViewModel
+            {
+                FirstName = GlobalStatic.FirstName,
+                LastName = GlobalStatic.LastName,
+                Role = GlobalStatic.role,
+                Email = GlobalStatic.Email
+            });
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword()
+        {
+            if (GlobalStatic.userID == null)
+            {
+                return View("Profile");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel r)
+        {
+            if (GlobalStatic.userID == null)
+            {
+                return View("Index");
+            }
+
+            if (r.NewPassword != r.NewPasswordConfirmed)
+            {
+                ModelState.AddModelError(string.Empty, "Passwords are not the same");
+                // passwords do not match
+                return View();
+            }
+
+            if (r.NewPassword.Length <= 11)
+            {
+                ModelState.AddModelError(string.Empty, "Password must be 12 characters or more");
+                // passwords not long enough
+                return View();
+            }
+
+            List<User> Users = context.Users.ToList();
+
+            foreach (User user in Users)
+            {
+                if (user.UserId == GlobalStatic.userID)
+                {
+                    // this is the right user to update
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+
+                    string updatePass = r.PreviousPassword + user.PassSalt;
+                    for (int i = 0; i < user.PassIterations; ++i)
+                    {
+                        updatePass = hash(updatePass);
+                    }
+
+                    if (updatePass != user.PassHash)
+                    {
+                        ModelState.AddModelError(string.Empty, "Incorrect Current Password");
+                        return View();
+                    }
+
+                    string newSalt = RandomString(saltLength);
+                    string newPass = r.NewPassword + newSalt;
+                    for (int i = 0; i < user.PassIterations; ++i)
+                    {
+                        newPass = hash(newPass);
+                    }
+                    user.PassHash = newPass;
+                    user.PassSalt = newSalt;
+
+                    context.Users.Add(user);
+                    context.SaveChanges();
+
+                    return View("Profile", new ProfileViewModel
+                    {
+                        FirstName = GlobalStatic.FirstName,
+                        LastName = GlobalStatic.LastName,
+                        Role = GlobalStatic.role,
+                        Email = GlobalStatic.Email
+                    });
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Something went wrong");
             return View();
         }
 
@@ -153,7 +370,12 @@ namespace Intex2021FagElGamous.Controllers
                 return View();
             }
 
-            // add check for password length
+            if (rvm.Password.Length <= 11)
+            {
+                ModelState.AddModelError(string.Empty, "Password must be 12 characters or more");
+                // passwords not long enough
+                return View();
+            }
 
             if (rvm.Password != rvm.PasswordConfirm)
             {

@@ -245,3 +245,7 @@ C:/Users/jenna/Downloads/intexparty/Intex2021FagElGamous/obj/Debug/netcoreapp3.1
 /Users/addisonhoward/Documents/Winter 2021/IS 413/TheFinalIntex/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.dll
 /Users/addisonhoward/Documents/Winter 2021/IS 413/TheFinalIntex/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.pdb
 /Users/addisonhoward/Documents/Winter 2021/IS 413/TheFinalIntex/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.genruntimeconfig.cache
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/ResetPassword.cshtml.g.cs
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/Profile.cshtml.g.cs
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/ResetEmail.cshtml.g.cs
+/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/ResetUserInfo.cshtml.g.cs
