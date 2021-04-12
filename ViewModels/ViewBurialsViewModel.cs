@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Intex2021FagElGamous.Models.ViewModels;
 
 namespace Intex2021FagElGamous.Models
 {
@@ -7,7 +8,8 @@ namespace Intex2021FagElGamous.Models
     public class ViewBurialsViewModel
     {
         public List<ViewBurialsBurialModel> Burials { get; set; }
-        // Insert pagination model thing here
+        public PageNumberingInfo PageNumberingInfo { get; set; }
+
         // Insert Filter model here too
 
     }
@@ -21,15 +23,15 @@ namespace Intex2021FagElGamous.Models
         public int EWTop { get; set; }
         public int EWBottom { get; set; }
         public string Quadrant { get; set; }
-        //public string Burialwesttohead { get; set; }
-        //public string Burialwesttofeet { get; set; }
-        //public string Burialsouthtohead { get; set; }
-        //public string Burialsouthtofeet { get; set; }
-        //public string Burialdepth { get; set; }
-        //public string Length { get; set; }
-        //public string Goods { get; set; }
-        //public string GenderCode { get; set; }
-
+        public string Burialwesttohead { get; set; }
+        public string Burialwesttofeet { get; set; }
+        public string Burialsouthtohead { get; set; }
+        public string Burialsouthtofeet { get; set; }
+        public string Burialdepth { get; set; }
+        public string Length { get; set; }
+        public string Goods { get; set; }
+        public string GenderCode { get; set; }
+        public int BurialSiteId { get; set; }
         public int BurialNumber { get; set; }
         public string OsteologyNotes { get; set; }
     }

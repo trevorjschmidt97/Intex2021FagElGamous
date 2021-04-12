@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/addisonhoward/Documents/Winter 2021/IS 413/TheFinalIntex/Intex2021FagElGamous/Intex2021FagElGamous.csproj": {}
+    "/Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous.csproj": {}
   },
   "projects": {
-    "/Users/addisonhoward/Documents/Winter 2021/IS 413/TheFinalIntex/Intex2021FagElGamous/Intex2021FagElGamous.csproj": {
+    "/Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/addisonhoward/Documents/Winter 2021/IS 413/TheFinalIntex/Intex2021FagElGamous/Intex2021FagElGamous.csproj",
+        "projectUniqueName": "/Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous.csproj",
         "projectName": "Intex2021FagElGamous",
-        "projectPath": "/Users/addisonhoward/Documents/Winter 2021/IS 413/TheFinalIntex/Intex2021FagElGamous/Intex2021FagElGamous.csproj",
+        "projectPath": "/Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous.csproj",
         "packagesPath": "/Users/addisonhoward/.nuget/packages/",
-        "outputPath": "/Users/addisonhoward/Documents/Winter 2021/IS 413/TheFinalIntex/Intex2021FagElGamous/obj/",
+        "outputPath": "/Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/addisonhoward/.config/NuGet/NuGet.Config"
