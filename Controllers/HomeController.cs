@@ -10,6 +10,7 @@ using System.Text;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Intex2021FagElGamous.ViewModels;
+using Intex2021FagElGamous.Models.ViewModels;
 
 namespace Intex2021FagElGamous.Controllers
 {
@@ -57,8 +58,12 @@ namespace Intex2021FagElGamous.Controllers
             return View();
         }
 
-        public IActionResult ViewBurials()
+        public IActionResult ViewBurials(int pageNum = 1)
         {
+            //sets the number of mummy records per page
+            int pageSize = 10;
+
+
             ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
 
 
@@ -67,7 +72,10 @@ namespace Intex2021FagElGamous.Controllers
             List<ViewBurialsBurialModel> vbbmList = new List<ViewBurialsBurialModel>();
 
             // for each burial in our db
-            foreach (Burial b in context.Burials)
+            foreach (Burial b in context.Burials
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList())
             {
                 // create a burials model
                 ViewBurialsBurialModel vbbm = new ViewBurialsBurialModel();
@@ -123,6 +131,15 @@ namespace Intex2021FagElGamous.Controllers
             }
             viewModel.Burials = vbbmList;
 
+            //kinda like a constructor
+            PageNumberingInfo pageNumber = new PageNumberingInfo
+            {
+                NumItemsPerPage = pageSize,
+                CurrentPage = pageNum,
+                TotalNumItems = (context.Burials.Count())
+            };
+
+            viewModel.PageNumberingInfo = pageNumber;
 
             return View(viewModel);
         }

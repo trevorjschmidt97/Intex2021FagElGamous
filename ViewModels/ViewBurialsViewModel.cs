@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Intex2021FagElGamous.Models.ViewModels;
 
 namespace Intex2021FagElGamous.Models
 {
@@ -7,7 +8,8 @@ namespace Intex2021FagElGamous.Models
     public class ViewBurialsViewModel
     {
         public List<ViewBurialsBurialModel> Burials { get; set; }
-        // Insert pagination model thing here
+        public PageNumberingInfo PageNumberingInfo { get; set; }
+
         // Insert Filter model here too
 
     }
