@@ -71,11 +71,13 @@ namespace Intex2021FagElGamous.Controllers
             // but not the normal ones, just with the info we want to see
             List<ViewBurialsBurialModel> vbbmList = new List<ViewBurialsBurialModel>();
 
-            // for each burial in our db
-            foreach (Burial b in context.Burials
+            List<Burial> Burials = context.Burials
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
-                    .ToList())
+                    .ToList();
+
+            // for each burial in our db
+            foreach (Burial b in Burials)
             {
                 // create a burials model
                 ViewBurialsBurialModel vbbm = new ViewBurialsBurialModel();
@@ -160,8 +162,196 @@ namespace Intex2021FagElGamous.Controllers
             {
                 return View("Index");
             }
-            return View();
+
+            List<AdminViewModel> avms = new List<AdminViewModel>();
+
+            List<User> Users = context.Users.ToList();
+
+            foreach (User user in Users)
+            {
+                // create a new adminview model
+                AdminViewModel avm = new AdminViewModel();
+                avm.Email = user.Email;
+                avm.FirstName = user.FirstName;
+                avm.LastName = user.LastName;
+                avm.Role = user.Role;
+                avm.UserID = user.UserId;
+
+                avms.Add(avm);
+            }
+
+            avms = avms.OrderBy(o => o.Email).ToList();
+
+            return View(avms);
         }
+
+        public IActionResult RemoveUser(AdminViewModel avmm)
+        {
+            string UserID = avmm.UserID;
+            Console.WriteLine("inside delete user");
+            Console.WriteLine("Userid", UserID);
+            List<User> UsersToDelete = context.Users.ToList();
+            foreach (User user in UsersToDelete)
+            {
+                Console.WriteLine(user.UserId);
+                if (user.UserId == UserID)
+                {
+                    Console.WriteLine("Inside of the actual deletion");
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+                    break;
+                }
+            }
+
+            Console.WriteLine("outside");
+            List<AdminViewModel> avms = new List<AdminViewModel>();
+
+            List<User> Users = context.Users.ToList();
+
+            foreach (User user in Users)
+            {
+                // create a new adminview model
+                AdminViewModel avm = new AdminViewModel();
+                avm.Email = user.Email;
+                avm.FirstName = user.FirstName;
+                avm.LastName = user.LastName;
+                avm.Role = user.Role;
+                avm.UserID = user.UserId;
+
+                avms.Add(avm);
+            }
+
+            avms = avms.OrderBy(o => o.Email).ToList();
+
+            return View("Admin", avms);
+        }
+
+        public IActionResult ChangeRoleNone(AdminViewModel avmm)
+        {
+            string UserID = avmm.UserID;
+            List<User> UsersToDelete = context.Users.ToList();
+            foreach (User user in UsersToDelete)
+            {
+                Console.WriteLine(user.UserId);
+                if (user.UserId == UserID)
+                {
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+
+                    user.Role = "No Role";
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                    break;
+                }
+            }
+
+            Console.WriteLine("outside");
+            List<AdminViewModel> avms = new List<AdminViewModel>();
+
+            List<User> Users = context.Users.ToList();
+
+            foreach (User user in Users)
+            {
+                // create a new adminview model
+                AdminViewModel avm = new AdminViewModel();
+                avm.Email = user.Email;
+                avm.FirstName = user.FirstName;
+                avm.LastName = user.LastName;
+                avm.Role = user.Role;
+                avm.UserID = user.UserId;
+
+                avms.Add(avm);
+            }
+
+            avms = avms.OrderBy(o => o.Email).ToList();
+
+            return View("Admin", avms);
+        }
+
+        public IActionResult ChangeRoleResearcher(AdminViewModel avmm)
+        {
+            string UserID = avmm.UserID;
+            List<User> UsersToDelete = context.Users.ToList();
+            foreach (User user in UsersToDelete)
+            {
+                Console.WriteLine(user.UserId);
+                if (user.UserId == UserID)
+                {
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+
+                    user.Role = "Researcher";
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                    break;
+                }
+            }
+
+            Console.WriteLine("outside");
+            List<AdminViewModel> avms = new List<AdminViewModel>();
+
+            List<User> Users = context.Users.ToList();
+
+            foreach (User user in Users)
+            {
+                // create a new adminview model
+                AdminViewModel avm = new AdminViewModel();
+                avm.Email = user.Email;
+                avm.FirstName = user.FirstName;
+                avm.LastName = user.LastName;
+                avm.Role = user.Role;
+                avm.UserID = user.UserId;
+
+                avms.Add(avm);
+            }
+
+            avms = avms.OrderBy(o => o.Email).ToList();
+
+            return View("Admin", avms);
+        }
+
+        public IActionResult ChangeRoleAdmin(AdminViewModel avmm)
+        {
+            string UserID = avmm.UserID;
+            List<User> UsersToDelete = context.Users.ToList();
+            foreach (User user in UsersToDelete)
+            {
+                Console.WriteLine(user.UserId);
+                if (user.UserId == UserID)
+                {
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+
+                    user.Role = "Admin";
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                    break;
+                }
+            }
+
+            Console.WriteLine("outside");
+            List<AdminViewModel> avms = new List<AdminViewModel>();
+
+            List<User> Users = context.Users.ToList();
+
+            foreach (User user in Users)
+            {
+                // create a new adminview model
+                AdminViewModel avm = new AdminViewModel();
+                avm.Email = user.Email;
+                avm.FirstName = user.FirstName;
+                avm.LastName = user.LastName;
+                avm.Role = user.Role;
+                avm.UserID = user.UserId;
+
+                avms.Add(avm);
+            }
+
+            avms = avms.OrderBy(o => o.Email).ToList();
+
+            return View("Admin", avms);
+        }
+
 
         // ------------------------------- Profile stuff -----------------------
         public IActionResult Profile()
@@ -206,7 +396,6 @@ namespace Intex2021FagElGamous.Controllers
                 if (user.UserId == GlobalStatic.userID)
                 {
                     // this is the right user to update
-                    Console.WriteLine("this is inside the right user");
                     context.Users.Remove(user);
                     context.SaveChanges();
 

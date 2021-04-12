@@ -47,38 +47,28 @@ namespace Intex2021FagElGamous.Infrastructure
 
             TagBuilder finishedTag = new TagBuilder("div");
 
-            //int maxPages = 0;
-
-            //if (PageInfo.NumPages > 10)
-            //{
-            //    maxPages = 10;
-            //}
-            //else
-            //{
-            //    maxPages = PageInfo.NumPages;
-            //}
-
             for (int i = 1; i <= PageInfo.NumPages; i++)
             {
-                TagBuilder individualTag = new TagBuilder("a");
+                if (i <= 2 || PageInfo.NumPages - i < 2 || Math.Abs(PageInfo.CurrentPage - i) < 2)
+                {
+                    TagBuilder individualTag = new TagBuilder("a");
 
-                KeyValuePairs["pageNum"] = i;
+                    KeyValuePairs["pageNum"] = i;
 
-                individualTag.Attributes["href"] = urlHelper.Action("ViewBurials", KeyValuePairs);
+                    individualTag.Attributes["href"] = urlHelper.Action("ViewBurials", KeyValuePairs);
 
-           
+
                     if (PageClassesEnabled)
                     {
-                        Console.WriteLine(i);
-                        Console.WriteLine("test");
                         individualTag.AddCssClass(PageClass);
                         individualTag.AddCssClass(i == PageInfo.CurrentPage
                             ? PageClassSelected : PageClassNormal);
                     }
- 
 
-                individualTag.InnerHtml.Append(i.ToString());
-                finishedTag.InnerHtml.AppendHtml(individualTag);
+
+                    individualTag.InnerHtml.Append(i.ToString());
+                    finishedTag.InnerHtml.AppendHtml(individualTag);
+                }
             }
 
             output.Content.AppendHtml(finishedTag.InnerHtml);

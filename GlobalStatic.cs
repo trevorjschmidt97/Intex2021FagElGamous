@@ -5,10 +5,10 @@ namespace Intex2021FagElGamous
     {
 
         // TODO: Before deploying, switch all these back to nulls
-        public static string userID { get; set; } = null;//"AMRTRQAMBFRRACIFAMTB";
-        public static string role { get; set; } = null;//"Admin";
-        public static string Email { get; set; } = null;//"trevors@gmail.com";
-        public static string FirstName { get; set; } = null;//"Trevor";
-        public static string LastName { get; set; } = null;//"Schmidt";
+        public static string userID { get; set; } = "AMRTRQAMBFRRACIFAMTB";
+        public static string role { get; set; } = "Admin";
+        public static string Email { get; set; } = "trevors@gmail.com";
+        public static string FirstName { get; set; } = "Trevor";
+        public static string LastName { get; set; } = "Schmidt";
     }
 }
