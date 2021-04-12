@@ -71,25 +71,74 @@ namespace Intex2021FagElGamous.Controllers
             // but not the normal ones, just with the info we want to see
             List<ViewBurialsBurialModel> vbbmList = new List<ViewBurialsBurialModel>();
 
-            List<Burial> Burials = context.Burials
+            // for each burial in our db
+            foreach (Burial b in context.Burials
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
-                    .ToList();
-
-            // for each burial in our db
-            foreach (Burial b in Burials)
+                    .ToList())
             {
                 // create a burials model
                 ViewBurialsBurialModel vbbm = new ViewBurialsBurialModel();
 
                 // grab it's burial number
                 int BurialNumber = (int)b.BurialNumber;
+                int BurialSiteId = (int)b.BurialSiteId;
                 string OsteologyNotes = null;
+
+                string Burialwesttohead = null;
+                string Burialwesttofeet = null;
+                string Burialsouthtohead = null;
+                string Burialsouthtofeet = null;
+                string Burialdepth = null;
+                string Length = null;
+                string Goods = null;
+                string GenderCode = null;
+
+
                 if (!(b.OsteologyNotes is null))
                 {
                     OsteologyNotes = b.OsteologyNotes.ToString();
                 }
 
+                if (!(b.Burialwesttohead is null))
+                {
+                    Burialwesttohead = b.Burialwesttohead.ToString();
+                }
+
+                if (!(b.Burialwesttofeet is null))
+                {
+                    Burialwesttofeet = b.Burialwesttofeet.ToString();
+                }
+
+                if (!(b.Burialsouthtohead is null))
+                {
+                    Burialsouthtohead = b.Burialsouthtohead.ToString();
+                }
+
+                if (!(b.Burialsouthtofeet is null))
+                {
+                    Burialsouthtofeet = b.Burialsouthtofeet.ToString();
+                }
+
+                if (!(b.Burialdepth is null))
+                {
+                    Burialdepth = b.Burialdepth.ToString();
+                }
+
+                if (!(b.Length is null))
+                {
+                    Length = b.Length.ToString();
+                }
+
+                if (!(b.Goods is null))
+                {
+                    Goods = b.Goods.ToString();
+                }
+
+                if (!(b.GenderCode is null))
+                {
+                    GenderCode = b.GenderCode.ToString();
+                }
 
                 string NS = context
                     .BurialSites
@@ -126,8 +175,15 @@ namespace Intex2021FagElGamous.Controllers
                 vbbm.EWBottom = EWBottom;
                 vbbm.Quadrant = Quadrant;
                 vbbm.OsteologyNotes = OsteologyNotes;
-
-
+                vbbm.Burialwesttohead = Burialwesttohead;
+                vbbm.Burialwesttofeet = Burialwesttofeet;
+                vbbm.Burialsouthtohead = Burialsouthtohead;
+                vbbm.Burialsouthtofeet = Burialsouthtofeet;
+                vbbm.Burialdepth = Burialdepth;
+                vbbm.Length = Length;
+                vbbm.Goods = Goods;
+                vbbm.GenderCode = GenderCode;
+                vbbm.BurialSiteId = BurialSiteId;
 
                 vbbmList.Add(vbbm);
             }
@@ -145,6 +201,15 @@ namespace Intex2021FagElGamous.Controllers
 
             return View(viewModel);
         }
+
+
+        public IActionResult ViewMummy(ViewBurialsBurialModel v)
+        {
+            Burial b = context.Burials.FromSqlRaw("SELECT * FROM Burial WHERE BurialSiteId = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList().First();
+
+            return View(b);
+        }
+
 
         // ------------------------------ Resricted Section--------------------
         public IActionResult AddBurial()

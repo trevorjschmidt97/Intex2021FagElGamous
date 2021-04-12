@@ -1183,19 +1183,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/trevorschmidt/.nuget/packages/": {}
+    "/Users/addisonhoward/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/Intex2021FagElGamous.csproj",
+      "projectUniqueName": "/Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous.csproj",
       "projectName": "Intex2021FagElGamous",
-      "projectPath": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/Intex2021FagElGamous.csproj",
-      "packagesPath": "/Users/trevorschmidt/.nuget/packages/",
-      "outputPath": "/Users/trevorschmidt/Projects/Intex2021FagElGamous/Intex2021FagElGamous/obj/",
+      "projectPath": "/Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous.csproj",
+      "packagesPath": "/Users/addisonhoward/.nuget/packages/",
+      "outputPath": "/Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/trevorschmidt/.config/NuGet/NuGet.Config"
+        "/Users/addisonhoward/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -1262,7 +1262,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
       }
     }
   }
