@@ -36,7 +36,7 @@ namespace Intex2021FagElGamous.Controllers
         }
 
         public string RandomString(int size)
-        { 
+        {
             // creating a StringBuilder object()
             StringBuilder str_build = new StringBuilder();
             Random random = new Random();
@@ -209,9 +209,9 @@ namespace Intex2021FagElGamous.Controllers
 
             return View(b);
         }
-
-
-        // ------------------------------ Resricted Section--------------------
+       
+        // ------------------------------ Restricted Section--------------------
+        [HttpGet]
         public IActionResult AddBurial()
         {
             if (GlobalStatic.role != "Admin" || GlobalStatic.role != "Researcher")
@@ -219,6 +219,16 @@ namespace Intex2021FagElGamous.Controllers
                 return View("Index");
             }
             return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult AddBurial(BurialSite sites)
+        {
+            context.BurialSites.Add(sites);
+
+            context.SaveChanges();
+            return View("Index");
         }
 
         public IActionResult Admin()
@@ -712,7 +722,8 @@ namespace Intex2021FagElGamous.Controllers
             }
 
             List<User> Users = context.Users.ToList();
-            if (Users.Count() < 1) {
+            if (Users.Count() < 1)
+            {
                 ModelState.AddModelError(string.Empty, "Register before signing in");
                 return View("Index");
             }
@@ -738,7 +749,8 @@ namespace Intex2021FagElGamous.Controllers
                         GlobalStatic.FirstName = user.FirstName;
                         GlobalStatic.LastName = user.LastName;
                         return View("Index");
-                    } else
+                    }
+                    else
                     {
                         ModelState.AddModelError(string.Empty, "Invalid email/password");
                         GlobalStatic.userID = null;

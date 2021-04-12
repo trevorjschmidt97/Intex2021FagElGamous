@@ -3,6 +3,7 @@
  * Copyright 2013-2020 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
  */
+
 body {
   padding-top: 0px;
 }
@@ -31,7 +32,13 @@ body {
     border-color: #bc9055;
 }
 
+.funkier{
+    margin-top: 10px;
+}
+
+
 .button1 {
     width: 250px;
 }
+
 

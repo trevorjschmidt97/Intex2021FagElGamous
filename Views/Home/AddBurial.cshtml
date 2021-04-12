@@ -1,5 +1,201 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Intex2021FagElGamous.Models.BurialSite
+<!-- Page Content -->
+<header>
+
+    <link href="~/css/form.css" rel="stylesheet" />
+</header>
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 style="text-align: left">
+        Burials
+    </h1>
+    <h4>Add a new burial</h4>
+
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+            <form class="form" asp-action="AddBurial" method="post">
+                <h4>Direction</h4>
+                <span class="radio-ghost-fill"></span>
+                <label>
+                    <input required asp-for="NS" value="N" type="radio" />
+                    <span class="radio-ghost funkay"></span>
+                    North
+                </label>
+
+                <label>
+                    <input required asp-for="NS" value="S" type="radio" />
+                    <span class="radio-ghost funkay"></span>
+                    South
+                </label>
+                <div class="select-box">
+                    <label asp-for="Nstop" class="label select-box1"><span class="label-desc">Choose North Top</span> </label>
+                    <select class="select" required asp-for="Nstop">
+                        <option value="0">0</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                        <option value="100">100</option>
+                        <option value="110">110</option>
+                        <option value="120">120</option>
+                        <option value="130">130</option>
+                        <option value="140">140</option>
+                        <option value="150">150</option>
+                        <option value="160">160</option>
+                        <option value="170">170</option>
+                        <option value="180">180</option>
+                        <option value="190">190</option>
+                        <option value="200">200</option>
+                    </select>
+
+                </div>
+                <h4>Direction</h4>
+                <span class="radio-ghost-fill"></span>
+                <label>
+                    <input required asp-for="EW" value="E" type="radio" />
+                    <span class="radio-ghost funkay"></span>
+                    East
+                </label>
+
+                <label>
+                    <input required asp-for="EW" value="W" type="radio" />
+                    <span class="radio-ghost funkay"></span>
+                    West
+                </label>
+                <div class="select-box">
+                    <label asp-for="Ewtop" class="label select-box1"><span class="label-desc">Choose East Top</span> </label>
+                    <select class="select" required asp-for="Ewtop">
+                        <option value="0">0</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                        <option value="100">100</option>
+                        <option value="110">110</option>
+                        <option value="120">120</option>
+                        <option value="130">130</option>
+                        <option value="140">140</option>
+                        <option value="150">150</option>
+                        <option value="160">160</option>
+                        <option value="170">170</option>
+                        <option value="180">180</option>
+                        <option value="190">190</option>
+                        <option value="200">200</option>
+                    </select>
+
+                </div>
+                <div class="select-box">
+
+                    <label asp-for="Quadrant" class="label select-box1"><span class="label-desc">Choose area</span> </label>
+                    <select class="select" asp-for="Quadrant">
+                        <option value="SE">SE</option>
+                        <option value="NE">NE</option>
+                        <option value="SW">SW</option>
+                        <option value="NW">NW</option>
+                    </select>
+
+                </div>
+
+                <fieldset class="form-fieldset ui-input __first funkay">
+
+                    <label>
+                        <span>Burial Number</span>
+
+                    </label>
+                    <input type="text" tabindex="0" placeholder="1" />
+                </fieldset>
+                <fieldset class="form-fieldset ui-input __first funkay">
+
+                    <label>
+                        <span>South to Head</span>
+
+                    </label>
+                    <input type="text" tabindex="0" placeholder="measurement in meters" />
+                </fieldset>
+                <fieldset class="form-fieldset ui-input __first funkay">
+
+                    <label>
+                        <span>South to Feet</span>
+
+                    </label>
+                    <input type="text" tabindex="0" placeholder="measurement in meters" />
+                </fieldset>
+                <fieldset class="form-fieldset ui-input __first funkay">
+
+                    <label>
+                        <span>
+                            West to Head
+                        </span>
+
+                    </label>
+                    <input type="text" tabindex="0" placeholder="measurement in meters" />
+                </fieldset>
+                <fieldset class="form-fieldset ui-input __first funkay">
+
+                    <label>
+                        <span>Length</span>
+
+                    </label>
+                    <input type="text" tabindex="0" placeholder="measurement in meters" />
+                </fieldset>
+                <fieldset class="form-fieldset ui-input __first funkay">
+
+                    <label>
+                        <span>Depth</span>
+
+                    </label>
+                    <input type="text" tabindex="0" placeholder="measurement in meters" />
+                </fieldset>
+                <h4>Were there Burial Goods?</h4>
+                <span class="radio-ghost-fill"></span>
+                <label>
+                    <input type="radio" />
+                    <span class="radio-ghost funkay"></span>
+                    Yes
+                </label>
+
+                <label>
+                    <input type="radio" />
+                    <span class="radio-ghost funkay"></span>
+                    No
+                </label>
+                <div class="form-footer">
+                    <button type="submit" class="btn">Add Burial</button>
+                </div>
+                <br />
+                <br />
+                <div class="panel">
+                    <div class="button_outer ">
+                        <div class="btn_upload">
+                            <input type="file">
+                            Upload Photo
+                        </div>
+                        <div class="processing_bar"></div>
+                        <div class="success_box"></div>
+                    </div>
+                </div>
+                <div class="error_msg"></div>
+                <div class="uploaded_file_view">
+                    <span class="file_remove">X</span>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+</div>
