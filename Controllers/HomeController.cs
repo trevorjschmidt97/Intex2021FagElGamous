@@ -214,21 +214,22 @@ namespace Intex2021FagElGamous.Controllers
         [HttpGet]
         public IActionResult AddBurial()
         {
-            if (GlobalStatic.role != "Admin" || GlobalStatic.role != "Researcher")
+            if (GlobalStatic.role == "No Role")
             {
                 return View("Index");
             }
+      
             return View();
         }
 
 
         [HttpPost]
-        public IActionResult AddBurial(BurialSite sites)
+        public IActionResult AddBurial(AddMummyViewModel mummy)
         {
-            context.BurialSites.Add(sites);
+            //context.Add.Add(mummy);
 
-            context.SaveChanges();
-            return View("Index");
+            //context.SaveChanges();
+            return View();
         }
 
         public IActionResult Admin()
