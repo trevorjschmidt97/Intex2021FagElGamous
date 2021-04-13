@@ -15,17 +15,6 @@
 
                         <div asp-validation-summary="All" class="text-danger"></div>
 
-                        @*public string UserId { get; set; }
-                            public string Email { get; set; }
-                            public string PassHash { get; set; }
-                            public string PassSalt { get; set; }
-                            public long PassIterations { get; set; }
-                            public string FirstName { get; set; }
-                            public string LastName { get; set; }
-                            public string Role { get; set; }
-                            }*@
-
-
                         <div class="form-group">
                             <label asp-for="Email"></label>
                             <input asp-for="Email" class="form-control" />
@@ -35,11 +24,6 @@
                             <label asp-for="Password"></label>
                             <input asp-for="Password" class="form-control" type="password" />
                         </div>
-
-                        @*@if (Model.Message != null)
-                        {
-                            <p>@Model.Message</p>
-                        }*@
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-dark">Log in</button>

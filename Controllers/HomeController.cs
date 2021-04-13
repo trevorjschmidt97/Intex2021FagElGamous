@@ -20,6 +20,9 @@ namespace Intex2021FagElGamous.Controllers
         private FagElGamousBYUDBContext context { get; set; }
         private int saltLength = 15;
         private int iterationLength = 200000;
+        private int pageSize { get; set; } = 10;
+
+        private static List<Burial> GlobalBurials { get; set; }
 
         public HomeController(ILogger<HomeController> logger, FagElGamousBYUDBContext ctx)
         {
@@ -55,27 +58,29 @@ namespace Intex2021FagElGamous.Controllers
 
         public IActionResult Index()
         {
+            GlobalBurials = context.Burials.ToList();
+
             return View();
         }
 
+        [HttpGet]
         public IActionResult ViewBurials(int pageNum = 1)
         {
-            //sets the number of mummy records per page
-            int pageSize = 10;
 
-
-            ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
-
+           ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
 
             // Create a list of burials,
             // but not the normal ones, just with the info we want to see
             List<ViewBurialsBurialModel> vbbmList = new List<ViewBurialsBurialModel>();
 
-            // for each burial in our db
-            foreach (Burial b in context.Burials
+            List<Burial> Burials = GlobalBurials
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
-                    .ToList())
+                    .OrderBy(o => o.BurialSiteId)
+                    .ToList();
+
+            // for each burial in our db
+            foreach (Burial b in Burials)
             {
                 // create a burials model
                 ViewBurialsBurialModel vbbm = new ViewBurialsBurialModel();
@@ -194,30 +199,241 @@ namespace Intex2021FagElGamous.Controllers
             {
                 NumItemsPerPage = pageSize,
                 CurrentPage = pageNum,
-                TotalNumItems = (context.Burials.Count())
+                TotalNumItems = (GlobalBurials.Count())
             };
 
             viewModel.PageNumberingInfo = pageNumber;
+
+            viewModel.Filter = new ViewBurialsFilteringInfo();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult ViewBurials(ViewBurialsViewModel vbvm, int pageNum = 1)
+        {
+
+            Console.WriteLine("filter check:");
+
+            Console.WriteLine(vbvm.Filter.NS);
+            Console.WriteLine(vbvm.Filter.EW);
+            Console.WriteLine(vbvm.Filter.NSTop);
+            Console.WriteLine(vbvm.Filter.EWTop);
+            Console.WriteLine(vbvm.Filter.Quadrant);
+            Console.WriteLine(vbvm.Filter.GenderCode);
+
+            ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
+
+            // Create a list of burials,
+            // but not the normal ones, just with the info we want to see
+            List<ViewBurialsBurialModel> vbbmList = new List<ViewBurialsBurialModel>();
+
+            GlobalBurials = context.Burials
+                    .Where(b => b.GenderCode == vbvm.Filter.GenderCode).ToList();
+
+            List<Burial> Burials = GlobalBurials
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize)
+                    .OrderBy(o => o.BurialSiteId)
+                    .ToList();
+
+            // for each burial in our db
+            foreach (Burial b in Burials)
+            {
+                // get burial site info
+                string NS = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().NS.ToString();
+
+                int NSTop = (int)context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Nstop;
+
+                int NSBottom = NSTop + 10;
+
+                string EW = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().EW.ToString();
+
+                int EWTop = (int)context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Ewtop;
+
+                int EWBottom = EWTop + 10;
+
+                string Quadrant = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Quadrant.ToString();
+
+                // Add filtering here!
+                //if (vbvm.Filter.NS == "N" && NS != "N")
+                //{
+                //    Console.WriteLine("inside the NS");
+                //    continue;
+                //} else if (vbvm.Filter.NS == "S" && NS != "S")
+                //{
+                //    continue;
+                //}
+
+                //if (vbvm.Filter.EW == "E" && NS != "E")
+                //{
+                //    continue;
+                //}
+                //else if (vbvm.Filter.EW == "W" && NS != "W")
+                //{
+                //    continue;
+                //}
+
+
+                // create a burials model
+                ViewBurialsBurialModel vbbm = new ViewBurialsBurialModel();
+
+                // grab it's burial number
+                int BurialNumber = (int)b.BurialNumber;
+                int BurialSiteId = (int)b.BurialSiteId;
+                string OsteologyNotes = null;
+
+                string Burialwesttohead = null;
+                string Burialwesttofeet = null;
+                string Burialsouthtohead = null;
+                string Burialsouthtofeet = null;
+                string Burialdepth = null;
+                string Length = null;
+                string Goods = null;
+                string GenderCode = null;
+
+
+                if (!(b.OsteologyNotes is null))
+                {
+                    OsteologyNotes = b.OsteologyNotes.ToString();
+                }
+
+                if (!(b.Burialwesttohead is null))
+                {
+                    Burialwesttohead = b.Burialwesttohead.ToString();
+                }
+
+                if (!(b.Burialwesttofeet is null))
+                {
+                    Burialwesttofeet = b.Burialwesttofeet.ToString();
+                }
+
+                if (!(b.Burialsouthtohead is null))
+                {
+                    Burialsouthtohead = b.Burialsouthtohead.ToString();
+                }
+
+                if (!(b.Burialsouthtofeet is null))
+                {
+                    Burialsouthtofeet = b.Burialsouthtofeet.ToString();
+                }
+
+                if (!(b.Burialdepth is null))
+                {
+                    Burialdepth = b.Burialdepth.ToString();
+                }
+
+                if (!(b.Length is null))
+                {
+                    Length = b.Length.ToString();
+                }
+
+                if (!(b.Goods is null))
+                {
+                    Goods = b.Goods.ToString();
+                }
+
+                if (!(b.GenderCode is null))
+                {
+                    GenderCode = b.GenderCode.ToString();
+                }
+
+                // add all the info to the vbbm
+                vbbm.BurialNumber = BurialNumber;
+                vbbm.NS = NS;
+                vbbm.NSTop = NSTop;
+                vbbm.NSBottom = NSBottom;
+                vbbm.EW = EW;
+                vbbm.EWTop = EWTop;
+                vbbm.EWBottom = EWBottom;
+                vbbm.Quadrant = Quadrant;
+                vbbm.OsteologyNotes = OsteologyNotes;
+                vbbm.Burialwesttohead = Burialwesttohead;
+                vbbm.Burialwesttofeet = Burialwesttofeet;
+                vbbm.Burialsouthtohead = Burialsouthtohead;
+                vbbm.Burialsouthtofeet = Burialsouthtofeet;
+                vbbm.Burialdepth = Burialdepth;
+                vbbm.Length = Length;
+                vbbm.Goods = Goods;
+                vbbm.GenderCode = GenderCode;
+                vbbm.BurialSiteId = BurialSiteId;
+
+                vbbmList.Add(vbbm);
+            }
+            viewModel.Burials = vbbmList;
+
+            //kinda like a constructor
+            PageNumberingInfo pageNumber = new PageNumberingInfo
+            {
+                NumItemsPerPage = pageSize,
+                CurrentPage = pageNum,
+                TotalNumItems = (GlobalBurials.Count())
+            };
+            Console.WriteLine("count check:");
+            Console.WriteLine(context.Burials
+                    .Where(b => b.GenderCode == vbvm.Filter.GenderCode).Count());
+
+            viewModel.PageNumberingInfo = pageNumber;
+
+            viewModel.Filter = vbvm.Filter;
 
             return View(viewModel);
         }
 
 
-        public IActionResult ViewMummy(ViewBurialsBurialModel v)
+            public IActionResult ViewMummy(ViewBurialsBurialModel v)
         {
+            // This is the burial we are looking at
             Burial b = context.Burials.FromSqlRaw("SELECT * FROM Burial WHERE BurialSiteId = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList().First();
 
-            return View(b);
+            BurialSite bs = context.BurialSites.FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", v.BurialSiteId).ToList().First();
+
+            List<CranialMain> cranialMains = context.CranialMains.FromSqlRaw("SELECT * FROM CranialMain WHERE BurialSiteId = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList();
+            List<C14datum> c14Data = context.C14data.FromSqlRaw("SELECT * FROM C14Data WHERE BurialSiteId = {0} AND \"Burial#\" = {1}", v.BurialSiteId, v.BurialNumber).ToList();
+            List<FieldBook> fieldBooks = context.FieldBooks.FromSqlRaw("SELECT * FROM FieldBooks WHERE BurialSiteID = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList();
+
+            ViewBurialViewModel vbvm = new ViewBurialViewModel();
+            vbvm.Burial = b;
+            vbvm.BurialSite = bs;
+            vbvm.C14Data = c14Data;
+            vbvm.CranialMains = cranialMains;
+            vbvm.FieldBooks = fieldBooks;
+
+
+            return View(vbvm);
         }
 
 
         // ------------------------------ Resricted Section--------------------
+        [HttpGet]
         public IActionResult AddBurial()
         {
-            if (GlobalStatic.role != "Admin" || GlobalStatic.role != "Researcher")
+            if (GlobalStatic.role != "Admin")
             {
                 return View("Index");
             }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddBurial(AddMummyViewModel mummy)
+        {
+            if (GlobalStatic.role != "Admin")
+            {
+                return View("Index");
+            }
+
             return View();
         }
 
@@ -710,6 +926,8 @@ namespace Intex2021FagElGamous.Controllers
             {
                 return View();
             }
+
+            Console.WriteLine(u.Email);
 
             List<User> Users = context.Users.ToList();
             if (Users.Count() < 1) {
