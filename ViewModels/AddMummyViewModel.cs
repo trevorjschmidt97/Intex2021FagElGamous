@@ -27,6 +27,7 @@ namespace Intex2021FagElGamous.Models
         public string Burialdepth { get; set; }
         public string Length { get; set; }
         public string Goods { get; set; }
+
         public string Yearonskull { get; set; }
         public string Monthonskull { get; set; }
         public string DateonSkull { get; set; }
@@ -48,6 +49,7 @@ namespace Intex2021FagElGamous.Models
         public string MetopicSuture { get; set; }
         public string ButtonOsteoma { get; set; }
         public string Osteologyunknowncomment { get; set; }
+
         public string TemporalMandibularJointOsteoarthritisTmjoa { get; set; }
         public string LinearHypoplasiaEnamel { get; set; }
         public string Yearexcav { get; set; }
