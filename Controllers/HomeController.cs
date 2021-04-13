@@ -718,6 +718,22 @@ namespace Intex2021FagElGamous.Controllers
             //context.SaveChanges();
             return View();        }
 
+        [HttpGet]
+        public IActionResult AddCranial()
+        {
+            if (GlobalStatic.role == "No Role")
+            {
+                return View("Index");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddCranial(CranialMain cranialmain)
+        {
+            return View();
+        }
 
 
         [HttpGet]
