@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -7,6 +8,9 @@ namespace Intex2021FagElGamous.Models
 {
     public partial class Burial
     {
+        [Key]
+        public long? BurialKeyID { get; set; }
+
         public long? Gamous { get; set; }
         public long? BurialSiteId { get; set; }
         public long? BurialNumber { get; set; }

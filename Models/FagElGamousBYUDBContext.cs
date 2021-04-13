@@ -53,9 +53,13 @@ namespace Intex2021FagElGamous.Models
 
             modelBuilder.Entity<Burial>(entity =>
             {
-                entity.HasNoKey();
+                
 
                 entity.ToTable("Burial");
+
+                entity.Property(e => e.BurialKeyID)
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("BurialKeyID");
 
                 entity.Property(e => e.AgeCodeSingle).HasColumnName("AgeCodeSINGLE");
 
@@ -108,7 +112,7 @@ namespace Intex2021FagElGamous.Models
 
             modelBuilder.Entity<BurialSite>(entity =>
             {
-                entity.HasNoKey();
+                
 
                 entity.ToTable("BurialSite");
 
@@ -129,7 +133,7 @@ namespace Intex2021FagElGamous.Models
 
             modelBuilder.Entity<C14datum>(entity =>
             {
-                entity.HasNoKey();
+                
 
                 entity.ToTable("C14Data");
 
@@ -181,7 +185,7 @@ namespace Intex2021FagElGamous.Models
 
             modelBuilder.Entity<FieldBook>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
 
                 entity.Property(e => e.BurialSiteId).HasColumnName("BurialSiteID");
 

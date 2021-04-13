@@ -14,32 +14,34 @@ namespace Intex2021FagElGamous.Models
 
     public class ViewBurialsFilteringInfo
     {
-        public string NS { get; set; } 
+        public string NS { get; set; }
         public int NSTop { get; set; }
         public int NSBottom { get; set; }
         public string EW { get; set; }
         public int EWTop { get; set; }
         public int EWBottom { get; set; }
         public string Quadrant { get; set; }
-        public double Burialwesttohead { get; set; }
-        public double Burialwesttofeet { get; set; }
-        public double Burialsouthtohead { get; set; }
-        public double Burialsouthtofeet { get; set; }
-        public double Burialdepth { get; set; }
+
+        public double BurialwesttoheadMin { get; set; }
+        public double BurialwesttoheadMax { get; set; }
+        public double BurialwesttofeetMin { get; set; }
+        public double BurialwesttofeetMax { get; set; }
+        public double BurialsouthtoheadMin { get; set; }
+        public double BurialsouthtoheadMax { get; set; }
+        public double BurialsouthtofeetMin { get; set; }
+        public double BurialsouthtofeetMax { get; set; }
+        public double BurialdepthMin { get; set; }
+        public double BurialdepthMax { get; set; }
         public string Goods { get; set; }
         public string GenderCode { get; set; }
-        public string Byusample { get; set; }
         public int YearonskullMin { get; set; }
         public int YearonskullMax { get; set; }
-
+        public string Byusample { get; set; }
         public long? BurialNumber { get; set; }
-     
         public string BodyAnalysis { get; set; }
         public string SkullatMagazine { get; set; }
-
         public string SexSkull2018 { get; set; }
         public string AgeSkull2018 { get; set; }
-
         public string SkullTrauma { get; set; }
         public string PostcraniaTrauma { get; set; }
         public string CribraOrbitala { get; set; }
@@ -53,13 +55,10 @@ namespace Intex2021FagElGamous.Models
         public string Yearexcav { get; set; }
         public string MonthExcavated { get; set; }
         public string DateExcavated { get; set; }
-
-
         public string Burialpreservation { get; set; }
         public string Burialwrapping { get; set; }
         public string Burialadultchild { get; set; }
         public string Burialgendermethod { get; set; }
-
         public string BurialDirection { get; set; }
         public string Burialageatdeath { get; set; }
         public string Burialagemethod { get; set; }
@@ -70,7 +69,7 @@ namespace Intex2021FagElGamous.Models
         public string FaceBundle { get; set; }
         public string OsteologyNotes { get; set; }
 
-        }
+    }
 
     public class ViewBurialsBurialModel
     {
@@ -94,5 +93,5 @@ namespace Intex2021FagElGamous.Models
         public string OsteologyNotes { get; set; }
     }
 
-    
+
 }

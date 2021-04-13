@@ -1,5 +1,4 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
@@ -9,9 +8,7 @@
 <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">
-        Mummy Title Here
-    </h1>
+   <h1 class="mt-4 mb-3">@Model.BurialSite.NS @Model.BurialSite.Nstop/@Model.BurialSite.Nsbottom @Model.BurialSite.EW @Model.BurialSite.Ewtop/@Model.BurialSite.Ewbottom #@Model.Burial.BurialNumber</h1>
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -24,8 +21,8 @@
         <!-- Post Content Column -->
         <div class="col-lg-8">
 
-            <!-- Preview Image -->
-            <!--<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">-->
+            <button type="submit" class="btn button1 right btn-Dark" onclick="location.href='@Url.Action("EditMummy", "Home", Model)'">Edit &rarr;</button>
+
 
             <hr>
             <!-- Date/Time -->
@@ -160,21 +157,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-            <!-- Comments Form -->
-            @*<div class="card my-4">
-                <h5 class="card-header">Leave a Comment:</h5>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>*@
         </div>
 
 

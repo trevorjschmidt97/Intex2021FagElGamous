@@ -22,6 +22,11 @@ namespace Intex2021FagElGamous.Controllers
         private int iterationLength = 200000;
         private int pageSize { get; set; } = 10;
 
+        private static ViewBurialViewModel? MummyToDelete { get; set; }
+
+        //set to true when we want to edit a mummy
+        private static bool FromEdit { get; set; } = false;
+
         private static List<Burial> GlobalBurials { get; set; }
 
         public HomeController(ILogger<HomeController> logger, FagElGamousBYUDBContext ctx)
@@ -65,11 +70,12 @@ namespace Intex2021FagElGamous.Controllers
 
         //OrderByDescending(o => o.FieldBooksId).ToList();
 
+
         [HttpGet]
         public IActionResult ViewBurials(int pageNum = 1)
         {
 
-           ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
+            ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
 
             // Create a list of burials,
             // but not the normal ones, just with the info we want to see
@@ -214,24 +220,256 @@ namespace Intex2021FagElGamous.Controllers
         [HttpPost]
         public IActionResult ViewBurials(ViewBurialsViewModel vbvm, int pageNum = 1)
         {
-
-            Console.WriteLine("filter check:");
-
-            Console.WriteLine(vbvm.Filter.NS);
-            Console.WriteLine(vbvm.Filter.EW);
-            Console.WriteLine(vbvm.Filter.NSTop);
-            Console.WriteLine(vbvm.Filter.EWTop);
-            Console.WriteLine(vbvm.Filter.Quadrant);
-            Console.WriteLine(vbvm.Filter.GenderCode);
-
             ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
 
             // Create a list of burials,
             // but not the normal ones, just with the info we want to see
             List<ViewBurialsBurialModel> vbbmList = new List<ViewBurialsBurialModel>();
 
-            GlobalBurials = context.Burials
-                    .Where(b => b.GenderCode == vbvm.Filter.GenderCode).ToList();
+            // filter the global burials
+            List<Burial> newBurials = new List<Burial>();
+
+            foreach (Burial bur in context.Burials.ToList())
+            {
+                // get burial site info
+                string NS = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().NS.ToString();
+
+                int NSTop = (int)context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().Nstop;
+
+                int NSBottom = NSTop + 10;
+
+                string EW = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().EW.ToString();
+
+                int EWTop = (int)context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().Ewtop;
+
+                int EWBottom = EWTop + 10;
+
+                string Quadrant = context
+                    .BurialSites
+                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().Quadrant.ToString();
+
+
+                //NS
+                if (vbvm.Filter.NS == "N" && NS != "N")
+                {
+                    // continue means it skips this burial
+                    continue;
+                }
+                if (vbvm.Filter.NS == "S" && NS != "S")
+                {
+                    continue;
+                }
+
+                //NSTop
+                if (vbvm.Filter.NSTop != -42 && vbvm.Filter.NSTop != NSTop)
+                {
+                    continue;
+                }
+
+                //EW
+                if (vbvm.Filter.EW == "E" && EW != "E")
+                {
+                    // continue means it skips this burial
+                    continue;
+                }
+                if (vbvm.Filter.EW == "W" && EW != "W")
+                {
+                    continue;
+                }
+
+                //ewtop
+                if (vbvm.Filter.EWTop != -42 && vbvm.Filter.EWTop != EWTop)
+                {
+                    continue;
+                }
+
+                //quadrant
+                if (vbvm.Filter.Quadrant != "All" && vbvm.Filter.Quadrant != Quadrant)
+                {
+                    continue;
+                }
+
+                //west to head
+                if (bur.Burialwesttohead != null)
+                {
+                    // we are allowed to cast to double
+                    double wth = Convert.ToDouble(bur.Burialwesttohead);
+
+                    if (wth < vbvm.Filter.BurialwesttoheadMin || wth > vbvm.Filter.BurialwesttoheadMax)
+                    {
+                        continue;
+                    }
+
+                }
+                //else
+                //{
+                //    continue;
+                //}
+
+                //west to feet
+                if (bur.Burialwesttofeet != null)
+                {
+                    // we are allowed to cast to double
+                    double wtf = Convert.ToDouble(bur.Burialwesttofeet);
+
+                    if (wtf < vbvm.Filter.BurialwesttofeetMin || wtf > vbvm.Filter.BurialwesttofeetMax)
+                    {
+                        continue;
+                    }
+
+                }
+                //else
+                //{
+                //    continue;
+                //}
+
+                //south to head
+                if (bur.Burialsouthtohead != null)
+                {
+                    // we are allowed to cast to double
+                    double sth = Convert.ToDouble(bur.Burialsouthtohead);
+
+                    if (sth < vbvm.Filter.BurialsouthtoheadMin || sth > vbvm.Filter.BurialsouthtoheadMax)
+                    {
+                        continue;
+                    }
+
+                }
+                //else
+                //{
+                //    continue;
+                //}
+
+                //south to feet
+                if (bur.Burialsouthtofeet != null)
+                {
+                    // we are allowed to cast to double
+                    double stf = Convert.ToDouble(bur.Burialsouthtofeet);
+
+                    if (stf < vbvm.Filter.BurialsouthtofeetMin || stf > vbvm.Filter.BurialsouthtofeetMax)
+                    {
+                        continue;
+                    }
+
+                }
+                //else
+                //{
+                //    continue;
+                //}
+
+                //depth
+                if (bur.Burialdepth != null)
+                {
+                    // we are allowed to cast to double
+                    double d = Convert.ToDouble(bur.Burialdepth);
+
+                    if (d < vbvm.Filter.BurialdepthMin || d > vbvm.Filter.BurialdepthMax)
+                    {
+                        continue;
+                    }
+
+                }
+                //else
+                //{
+                //    continue;
+                //}
+
+                //year on skull
+                if (bur.Yearonskull != null)
+                {
+                    // we are allowed to cast to double
+                    int d = int.Parse(bur.Yearonskull);
+
+                    if (d < vbvm.Filter.YearonskullMin || d > vbvm.Filter.YearonskullMax)
+                    {
+                        continue;
+                    }
+
+                }
+
+                // goods
+                if (vbvm.Filter.Goods == "All")
+                {
+                    // include everything
+                }
+                else if (vbvm.Filter.Goods != bur.Goods)
+                {
+                    continue;
+                }
+
+                // gender codes
+                if (vbvm.Filter.GenderCode == "All")
+                {
+                    // include everything
+                }
+                else if (vbvm.Filter.GenderCode != bur.GenderCode)
+                {
+                    continue;
+                }
+
+                // byu sampled
+                if (vbvm.Filter.Byusample == "All")
+                {
+                    // include everything
+                }
+                else if (vbvm.Filter.Byusample != bur.Byusample)
+                {
+                    continue;
+                }
+
+                // body analysis
+                if (vbvm.Filter.BodyAnalysis == "All")
+                {
+                    // include everything
+                }
+                else if (vbvm.Filter.BodyAnalysis != bur.BodyAnalysis)
+                {
+                    continue;
+                }
+
+                // skullmagazine
+                if (vbvm.Filter.SkullatMagazine == "All")
+                {
+                    // include everything
+                }
+                else if (vbvm.Filter.SkullatMagazine != bur.SkullatMagazine)
+                {
+                    continue;
+                }
+
+                // skull age
+                if (vbvm.Filter.AgeSkull2018 == "All")
+                {
+                    // include everything
+                }
+                else if (vbvm.Filter.AgeSkull2018 != bur.AgeSkull2018)
+                {
+                    continue;
+                }
+
+                // skull sex
+                if (vbvm.Filter.SexSkull2018 == "All")
+                {
+                    // include everything
+                }
+                else if (vbvm.Filter.SexSkull2018 != bur.SexSkull2018)
+                {
+                    continue;
+                }
+
+
+                newBurials.Add(bur);
+            }
+
+            GlobalBurials = newBurials;
 
             List<Burial> Burials = GlobalBurials
                     .Skip((pageNum - 1) * pageSize)
@@ -266,26 +504,6 @@ namespace Intex2021FagElGamous.Controllers
                 string Quadrant = context
                     .BurialSites
                     .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Quadrant.ToString();
-
-                // Add filtering here!
-                //if (vbvm.Filter.NS == "N" && NS != "N")
-                //{
-                //    Console.WriteLine("inside the NS");
-                //    continue;
-                //} else if (vbvm.Filter.NS == "S" && NS != "S")
-                //{
-                //    continue;
-                //}
-
-                //if (vbvm.Filter.EW == "E" && NS != "E")
-                //{
-                //    continue;
-                //}
-                //else if (vbvm.Filter.EW == "W" && NS != "W")
-                //{
-                //    continue;
-                //}
-
 
                 // create a burials model
                 ViewBurialsBurialModel vbbm = new ViewBurialsBurialModel();
@@ -381,9 +599,6 @@ namespace Intex2021FagElGamous.Controllers
                 CurrentPage = pageNum,
                 TotalNumItems = (GlobalBurials.Count())
             };
-            Console.WriteLine("count check:");
-            Console.WriteLine(context.Burials
-                    .Where(b => b.GenderCode == vbvm.Filter.GenderCode).Count());
 
             viewModel.PageNumberingInfo = pageNumber;
 
@@ -392,8 +607,7 @@ namespace Intex2021FagElGamous.Controllers
             return View(viewModel);
         }
 
-
-            public IActionResult ViewMummy(ViewBurialsBurialModel v)
+        public IActionResult ViewMummy(ViewBurialsBurialModel v)
         {
             // This is the burial we are looking at
             Burial b = context.Burials.FromSqlRaw("SELECT * FROM Burial WHERE BurialSiteId = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList().First();
@@ -415,7 +629,96 @@ namespace Intex2021FagElGamous.Controllers
             return View(vbvm);
         }
 
-        // ------------------------------ Resricted Section--------------------
+        // ------------------------------ Restricted Section--------------------
+
+        //edit quote allows for users to edit the quote and copies the quote they want to edit
+        public IActionResult EditMummy(ViewBurialViewModel mummy)
+        {
+            //Console.WriteLine(mummy.BurialSite);
+            
+            ////Console.WriteLine(mummy.BurialSite.NS);
+
+
+
+            //FromEdit = true;
+            //MummyToDelete = mummy;
+            //Console.WriteLine(MummyToDelete);
+
+            //AddMummyViewModel newMummy = new AddMummyViewModel();
+
+            //Console.WriteLine(mummy.BurialSite.NS);
+            //newMummy.NS = mummy.BurialSite.NS;
+            //newMummy.Nstop = mummy.BurialSite.Nstop;
+            //newMummy.EW = mummy.BurialSite.EW;
+            //newMummy.Ewtop = mummy.BurialSite.Ewtop;
+            //newMummy.Quadrant = mummy.BurialSite.Quadrant;
+            //newMummy.BurialNumber = mummy.Burial.BurialNumber;
+            //newMummy.Burialwesttofeet = mummy.Burial.Burialwesttofeet;
+            //newMummy.Burialwesttohead = mummy.Burial.Burialwesttohead;
+            //newMummy.Burialsouthtofeet = mummy.Burial.Burialsouthtofeet;
+            //newMummy.Burialsouthtohead = mummy.Burial.Burialsouthtohead;
+            //newMummy.Burialdepth = mummy.Burial.Burialdepth;
+            //newMummy.Length = mummy.Burial.Length;
+            //newMummy.Goods = mummy.Burial.Goods;
+            //newMummy.Yearonskull = mummy.Burial.Yearonskull;
+            //newMummy.Monthonskull = mummy.Burial.Monthonskull;
+            //newMummy.DateonSkull = mummy.Burial.DateonSkull;
+            //newMummy.InitialsofDataEntryChecker = mummy.Burial.InitialsofDataEntryChecker;
+            //newMummy.InitialsofDataEntryExpert = mummy.Burial.InitialsofDataEntryExpert;
+            //newMummy.Byusample = mummy.Burial.Byusample;
+            //newMummy.BodyAnalysis = mummy.Burial.BodyAnalysis;
+            //newMummy.SkullatMagazine = mummy.Burial.SkullatMagazine;
+            //newMummy.PostcraniaatMagazine = mummy.Burial.PostcraniaatMagazine;
+            //newMummy.SexSkull2018 = mummy.Burial.SexSkull2018;
+            //newMummy.AgeSkull2018 = mummy.Burial.AgeSkull2018;
+            //newMummy.RackandShelf = mummy.Burial.RackandShelf;
+            //newMummy.Tobeconfirmed = mummy.Burial.Tobeconfirmed;
+            //newMummy.SkullTrauma = mummy.Burial.SkullTrauma;
+            //newMummy.PostcraniaTrauma = mummy.Burial.PostcraniaTrauma;
+            //newMummy.CribraOrbitala = mummy.Burial.CribraOrbitala;
+            //newMummy.PoroticHyperostosis = mummy.Burial.PoroticHyperostosis;
+            //newMummy.PoroticHyperostosisLocations = mummy.Burial.PoroticHyperostosisLocations;
+            //newMummy.MetopicSuture = mummy.Burial.MetopicSuture;
+            //newMummy.ButtonOsteoma = mummy.Burial.ButtonOsteoma;
+            //newMummy.Osteologyunknowncomment = mummy.Burial.Osteologyunknowncomment;
+            //newMummy.TemporalMandibularJointOsteoarthritisTmjoa = mummy.Burial.TemporalMandibularJointOsteoarthritisTmjoa;
+            //newMummy.LinearHypoplasiaEnamel = mummy.Burial.LinearHypoplasiaEnamel;
+            //newMummy.Yearexcav = mummy.Burial.Yearexcav;
+            //newMummy.MonthExcavated = mummy.Burial.MonthExcavated;
+            //newMummy.DateExcavated = mummy.Burial.DateExcavated;
+            //newMummy.Burialpreservation = mummy.Burial.Burialpreservation;
+            //newMummy.Burialwrapping = mummy.Burial.Burialwrapping;
+            //newMummy.Burialadultchild = mummy.Burial.Burialadultchild;
+            //newMummy.Burialgendermethod = mummy.Burial.Burialgendermethod;
+            //newMummy.AgeCodeSingle = mummy.Burial.AgeCodeSingle;
+            //newMummy.BurialDirection = mummy.Burial.BurialDirection;
+            //newMummy.Burialagemethod = mummy.Burial.Burialagemethod;
+            //newMummy.Burialageatdeath = mummy.Burial.Burialageatdeath;
+            //newMummy.HairColorCode = mummy.Burial.HairColorCode;
+            //newMummy.Burialsampletaken = mummy.Burial.Burialsampletaken;
+            //newMummy.LengthM = mummy.Burial.LengthM;
+            //newMummy.Cluster = mummy.Burial.Cluster;
+            //newMummy.FaceBundle = mummy.Burial.FaceBundle;
+            //newMummy.OsteologyNotes = mummy.Burial.OsteologyNotes;
+
+            return View("Index");
+            //return View("AddBurial", newMummy);
+        }
+
+        [HttpGet]        public IActionResult AddBiologicalSite()        {            if (GlobalStatic.role == "No Role")            {                return View("Index");            }            return View();        }        [HttpPost]        public IActionResult AddBiologicalSite(AddBiologicalViewModel biologicalsample)        {
+            //context.Add.Add(mummy);
+
+            //context.SaveChanges();
+            return View();        }
+
+
+        public IActionResult C14data()        {            if (GlobalStatic.role == "No Role")            {                return View("Index");            }            return View();        }        [HttpPost]        public IActionResult C14data(C14datum cdatum)        {
+            //context.Add.Add(mummy);
+
+            //context.SaveChanges();
+            return View();        }
+
+
 
         [HttpGet]
         public IActionResult AddFieldBook()
@@ -438,7 +741,7 @@ namespace Intex2021FagElGamous.Controllers
 
             string burialSiteId = context
                 .BurialSites
-                .FromSqlRaw("SELECT * FROM BurialSite WHERE N/S = {0} AND NSTop = {1} AND E/W = {2} AND EWTop = {3} AND Quadrant = {4}", afbvm.NS, afbvm.NSTop, afbvm.EW, afbvm.EWTop, afbvm.Quadrant)
+                .FromSqlRaw("SELECT * FROM BurialSite WHERE [N/S] = {0} AND NSTop = {1} AND [E/W] = {2} AND EWTop = {3} AND Quadrant = {4}", afbvm.NS, afbvm.Nstop, afbvm.EW, afbvm.Ewtop, afbvm.Quadrant)
                 .ToList()
                 .First()
                 .BurialSiteId.ToString();
@@ -462,6 +765,7 @@ namespace Intex2021FagElGamous.Controllers
             return View();
         }
 
+
         [HttpGet]
         public IActionResult AddBurial()
         {
@@ -481,7 +785,80 @@ namespace Intex2021FagElGamous.Controllers
                 return View("Index");
             }
 
-            return View();
+            Console.WriteLine(mummy.NS);
+            Console.WriteLine(mummy.Nstop);
+            Console.WriteLine(mummy.EW);
+            Console.WriteLine(mummy.Ewtop);
+            Console.WriteLine(mummy.Quadrant);
+
+            string burialSiteId = context
+               .BurialSites
+               .FromSqlRaw("SELECT * FROM BurialSite WHERE [N/S] = {0} AND [NSTop] = {1} AND [E/W] = {2} AND EWTop = {3} AND Quadrant = {4}", mummy.NS, mummy.Nstop, mummy.EW, mummy.Ewtop, mummy.Quadrant)
+               .ToList()
+               .First()
+               .BurialSiteId.ToString();
+
+
+            int maxId = (int)context.Burials.Max(o => o.BurialKeyID);
+            int BurialKeyID = maxId + 1;
+
+            Burial burial = new Burial
+            {
+                BurialKeyID = BurialKeyID,
+                BurialSiteId = Convert.ToInt64(burialSiteId),
+                BurialNumber = mummy.BurialNumber,
+                Burialwesttohead = mummy.Burialwesttohead,
+                Burialwesttofeet = mummy.Burialwesttofeet,
+                Burialsouthtohead = mummy.Burialsouthtohead,
+                Burialsouthtofeet = mummy.Burialsouthtofeet,
+                Burialdepth = mummy.Burialdepth,
+                Length = mummy.Length,
+                Goods = mummy.Goods,
+                Yearonskull = mummy.Yearonskull,
+                Monthonskull = mummy.Monthonskull,
+                DateonSkull = mummy.DateonSkull,
+                InitialsofDataEntryChecker = mummy.InitialsofDataEntryChecker,
+                InitialsofDataEntryExpert = mummy.InitialsofDataEntryExpert,
+                Byusample = mummy.Byusample,
+                BodyAnalysis = mummy.BodyAnalysis,
+                SkullatMagazine = mummy.SkullatMagazine,
+                PostcraniaatMagazine = mummy.PostcraniaatMagazine,
+                SexSkull2018 = mummy.SexSkull2018,
+                AgeSkull2018 = mummy.AgeSkull2018,
+                RackandShelf = mummy.RackandShelf,
+                Tobeconfirmed = mummy.Tobeconfirmed,
+                SkullTrauma = mummy.SkullTrauma,
+                PostcraniaTrauma = mummy.PostcraniaTrauma,
+                CribraOrbitala = mummy.CribraOrbitala,
+                PoroticHyperostosis = mummy.PoroticHyperostosis,
+                PoroticHyperostosisLocations = mummy.PoroticHyperostosis,
+                MetopicSuture = mummy.MetopicSuture,
+                ButtonOsteoma = mummy.ButtonOsteoma,
+                TemporalMandibularJointOsteoarthritisTmjoa = mummy.TemporalMandibularJointOsteoarthritisTmjoa,
+                LinearHypoplasiaEnamel = mummy.LinearHypoplasiaEnamel,
+                Yearexcav = mummy.Yearexcav,
+                MonthExcavated = mummy.MonthExcavated,
+                DateExcavated = mummy.DateExcavated,
+                Burialpreservation = mummy.Burialpreservation,
+                Burialwrapping = mummy.Burialwrapping,
+                Burialadultchild = mummy.Burialadultchild,
+                Burialgendermethod = mummy.Burialgendermethod,
+                AgeCodeSingle = mummy.AgeCodeSingle,
+                BurialDirection = mummy.BurialDirection,
+                Burialageatdeath = mummy.Burialageatdeath,
+                Burialagemethod = mummy.Burialagemethod,
+                HairColorCode = mummy.HairColorCode,
+                Burialsampletaken = mummy.Burialsampletaken,
+                LengthM = mummy.LengthM,
+                Cluster = mummy.Cluster,
+                FaceBundle = mummy.FaceBundle,
+                OsteologyNotes = mummy.OsteologyNotes
+            };
+
+            context.Burials.Add(burial);
+            context.SaveChanges();
+
+            return View("ViewBurials");
         }
 
         public IActionResult Admin()

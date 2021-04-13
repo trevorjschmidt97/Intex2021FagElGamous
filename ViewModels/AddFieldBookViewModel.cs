@@ -7,8 +7,8 @@ namespace Intex2021FagElGamous.ViewModels
         //public long? BurialSiteId { get; set; }
         public string NS { get; set; }
         public string EW { get; set; }
-        public int NSTop { get; set; }
-        public int EWTop { get; set; }
+        public int Nstop { get; set; }
+        public int Ewtop { get; set; }
         public string Quadrant { get; set; }
         public long? BurialNumber { get; set; }
         public string FieldBook1 { get; set; }

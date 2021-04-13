@@ -47,21 +47,37 @@
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="" asp-controller="Home" asp-action="AddBurial">Add Burial</a>
                             </li>
+                             <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="AddFieldBook">Add Field Book</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="AddBiologicalSite">Add Biological Sample</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="C14data">Add C14 Data</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="">Add Cranial Main</a>
+                            </li>
                         }
+
+
                         @if (GlobalStatic.role == "Admin")
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
                             </li>
-                        }
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile">Welcome @GlobalStatic.FirstName!</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                        </li>
+                        }
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile">Welcome @GlobalStatic.FirstName!</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
+                       
                     }
+
                 </ul>
             </div>
         </div>

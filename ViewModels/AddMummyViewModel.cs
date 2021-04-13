@@ -8,8 +8,6 @@ namespace Intex2021FagElGamous.Models
 {
     public class AddMummyViewModel
     {
-        //Burial Site
-        public long? BurialSiteId { get; set; }
         public string NS { get; set; }
         public long? Nstop { get; set; }
         public long? Nsbottom { get; set; }
@@ -17,12 +15,6 @@ namespace Intex2021FagElGamous.Models
         public long? Ewtop { get; set; }
         public long? Ewbottom { get; set; }
         public string Quadrant { get; set; }
-
-
-
-        //BurialInfo
-        //public long? Gamous { get; set; }
-        //public long? BurialSiteId { get; set; }
         public long? BurialNumber { get; set; }
         public string Burialwesttohead { get; set; }
         public string Burialwesttofeet { get; set; }
@@ -31,9 +23,6 @@ namespace Intex2021FagElGamous.Models
         public string Burialdepth { get; set; }
         public string Length { get; set; }
         public string Goods { get; set; }
-
-
-
         public string Yearonskull { get; set; }
         public string Monthonskull { get; set; }
         public string DateonSkull { get; set; }
@@ -55,9 +44,6 @@ namespace Intex2021FagElGamous.Models
         public string MetopicSuture { get; set; }
         public string ButtonOsteoma { get; set; }
         public string Osteologyunknowncomment { get; set; }
-
-
-
         public string TemporalMandibularJointOsteoarthritisTmjoa { get; set; }
         public string LinearHypoplasiaEnamel { get; set; }
         public string Yearexcav { get; set; }
@@ -77,8 +63,5 @@ namespace Intex2021FagElGamous.Models
         public string Cluster { get; set; }
         public string FaceBundle { get; set; }
         public string OsteologyNotes { get; set; }
-
-
-
     }
 }

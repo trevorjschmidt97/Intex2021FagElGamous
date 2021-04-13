@@ -1,46 +1,130 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<!--@{
+@{
 }
 
 @model AddFieldBookViewModel
 
 <div class="container">
-    <main role="main" class="pb-3">
-        <h1>@ViewData["Title"]</h1>
 
-        <div class="row">
-            <div class="col-md-6">
-                <section>
-                    <form asp-action="Signin" method="post">
-                        <hr />
+    <!-- Page Heading/Breadcrumbs -->
+    <h1>
+        Add A Field Book
+    </h1>
 
-                        <div asp-validation-summary="All" class="text-danger"></div>
 
-                        <div class="form-group">
-                            <label asp-for="Email"></label>
-                            <input asp-for="Email" class="form-control" />
-                        </div>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
 
-                        <div class="form-group">
-                            <label asp-for="Password"></label>
-                            <input asp-for="Password" class="form-control" type="password" />
-                        </div>
+        </li>
 
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-dark">Log in</button>
-                        </div>
+    </ol>
+    <div class="form-group">
+        <form asp-action="AddFieldBook" method="post">
 
-                        <div class="form-group">
-                            <p>
-                                <a asp-area="" asp-controller="Home" asp-action="Register">Register as a new user</a>
-                            </p>
-                        </div>
-
-                    </form>
-                </section>
+            <div class="form-group">
+                <label asp-for="FieldBook1">FieldBook1:</label>
+                <input class="form-control" required asp-for="FieldBook1" />
             </div>
-        </div>
-    </main>
-</div>-->
+
+            <div class="form-group">
+                <label asp-for="FieldBookPageNumber">FieldBookPageNumber:</label>
+                <input class="form-control" required asp-for="FieldBookPageNumber" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BurialNumber">Burial Number:</label>
+                <input class="form-control" required asp-for="BurialNumber" />
+            </div>
+         
+            <label>
+                <input required asp-for="NS" value="N" type="radio" />
+                <span class="radio-ghost funkay"></span>
+                North
+            </label>
+            <label>
+                <input required asp-for="NS" value="S" type="radio" />
+                <span class="radio-ghost funkay"></span>
+                South
+            </label>
+            <div class="select-box">
+                <label asp-for="Nstop" class="label select-box1"><span class="label-desc">Choose North Top</span> </label>
+                <select class="select" required asp-for="Nstop">
+                    <option value="0">0</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                    <option value="100">100</option>
+                    <option value="110">110</option>
+                    <option value="120">120</option>
+                    <option value="130">130</option>
+                    <option value="140">140</option>
+                    <option value="150">150</option>
+                    <option value="160">160</option>
+                    <option value="170">170</option>
+                    <option value="180">180</option>
+                    <option value="190">190</option>
+                    <option value="200">200</option>
+                </select>
+            </div>
+            <h4>Direction</h4>
+            <span class="radio-ghost-fill"></span>
+            <label>
+                <input required asp-for="EW" value="E" type="radio" />
+                <span class="radio-ghost funkay"></span>
+                East
+            </label>
+            <label>
+                <input required asp-for="EW" value="W" type="radio" />
+                <span class="radio-ghost funkay"></span>
+                West
+            </label>
+            <div class="select-box">
+                <label asp-for="Ewtop" class="label select-box1"><span class="label-desc">Choose East Top</span> </label>
+                <select class="select" required asp-for="Ewtop">
+                    <option value="0">0</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                    <option value="100">100</option>
+                    <option value="110">110</option>
+                    <option value="120">120</option>
+                    <option value="130">130</option>
+                    <option value="140">140</option>
+                    <option value="150">150</option>
+                    <option value="160">160</option>
+                    <option value="170">170</option>
+                    <option value="180">180</option>
+                    <option value="190">190</option>
+                    <option value="200">200</option>
+                </select>
+            </div>
+            <!--Quadrant-->
+            <div class="select-box">
+                <label asp-for="Quadrant" class="label select-box1"><span class="label-desc">Choose area</span> </label>
+                <select class="select" asp-for="Quadrant">
+                    <option value="SE">SE</option>
+                    <option value="NE">NE</option>
+                    <option value="SW">SW</option>
+                    <option value="NW">NW</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-dark"> Submit </button>
+        </form>
+    </div>
+
+
+</div> 
