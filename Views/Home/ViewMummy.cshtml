@@ -10,35 +10,18 @@
     <!-- Page Heading/Breadcrumbs -->
    <h1 class="mt-4 mb-3">@Model.BurialSite.NS @Model.BurialSite.Nstop/@Model.BurialSite.Nsbottom @Model.BurialSite.EW @Model.BurialSite.Ewtop/@Model.BurialSite.Ewbottom #@Model.Burial.BurialNumber</h1>
 
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        </li>
-        <li class="breadcrumb-item active">Home Page</li>
-    </ol>
-
     <div class="row">
         <!-- Post Content Column -->
         <div class="col-lg-8">
-
-            <button type="submit" class="btn button1 right btn-Dark" onclick="location.href='@Url.Action("EditMummy", "Home", Model)'">Edit &rarr;</button>
-
-
-            <hr>
-            <!-- Date/Time -->
-            <p>Posted on XXXX</p>
-            <hr>
 
             <!-- Post Content -->
             <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="card">
                     <div class="card-header" role="tab" id="headingOne">
-                        <h5 class="mb-0">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Burial Site Location: </a>
+                        <h5 class="text-secondary">
+                            <a data-toggle="collapse text-secondary" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Burial Site Location: </a>
                         </h5>
                     </div>
-
-
 
 
                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
@@ -59,7 +42,7 @@
                 <div class="card">
                     <div class="card-header" role="tab" id="headingTwo">
                         <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <a class="collapsed text-secondary" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 Burial Info
                             </a>
                         </h5>
@@ -82,7 +65,7 @@
                 <div class="card">
                     <div class="card-header" role="tab" id="headingThree">
                         <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Skull Info</a>
+                            <a class="collapsed text-secondary" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Skull Info</a>
                         </h5>
                     </div>
                     <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
@@ -102,7 +85,7 @@
                 <div class="card">
                     <div class="card-header" role="tab" id="headingFour">
                         <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Body Info</a>
+                            <a class="collapsed text-secondary" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Body Info</a>
                         </h5>
                     </div>
                     <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
@@ -125,7 +108,7 @@
                 <div class="card">
                     <div class="card-header" role="tab" id="headingFive">
                         <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Dating Info</a>
+                            <a class="collapsed text-secondary" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Dating Info</a>
                         </h5>
                     </div>
                     <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
@@ -141,8 +124,8 @@
                 </div>
                 <div class="card">
                     <div class="card-header" role="tab" id="headingSix">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">Other Notes</a>
+                        <h5 class="text-secondary">
+                            <a class="collapsed text-secondary" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">Other Notes</a>
                         </h5>
                     </div>
                     <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix">
@@ -165,59 +148,18 @@
 
             <!-- Search Widget -->
             <div class="card mb-4">
-                <h5 class="card-header">Search</h5>
+                <h5 class="card-header">Display Images/Files</h5>
                 <div class="card-body">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="inpug-group-append">
-                            <button class="btn btn-secondary" type="button">Go!</button>
-                        </span>
-                    </div>
                 </div>
             </div>
 
             <!-- Categories Widget -->
             <div class="card my-4">
-                <h5 class="card-header">Categories</h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled mb-0">
-                                <li>
-                                    <a href="#">This</a>
-                                </li>
-                                <li>
-                                    <a href="#">for</a>
-                                </li>
-                                <li>
-                                    <a href="#">different</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled mb-0">
-                                <li>
-                                    <a href="#">is</a>
-                                </li>
-                                <li>
-                                    <a href="#">the</a>
-                                </li>
-                                <li>
-                                    <a href="#">categories</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="card-body text-center">
+                    <h3>Want To Edit This Record?</h3>
                 </div>
+                <button type="submit" class="btn button1 right btn-Dark" onclick="location.href='@Url.Action("EditMummy", "Home", Model)'">Edit &rarr;</button>
             </div>
-
-
-            <!-- Side Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Side Widget</h5>
-                <div class="card-body">
-                    Photo time!
-                </div>
             </div>
 
         </div>
