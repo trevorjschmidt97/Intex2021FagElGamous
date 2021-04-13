@@ -1,20 +1,17 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-
+@model ViewBurialViewModel
 
 <!-- Page Content -->
 <div class="container">
-
 
     <!-- Page Heading/Breadcrumbs -->
     <h1 class="mt-4 mb-3">
         Mummy Title Here
     </h1>
-
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -23,201 +20,151 @@
         <li class="breadcrumb-item active">Home Page</li>
     </ol>
 
-
     <div class="row">
-
-
         <!-- Post Content Column -->
         <div class="col-lg-8">
 
-
             <!-- Preview Image -->
-            <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
-
+            <!--<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">-->
 
             <hr>
-
-
             <!-- Date/Time -->
             <p>Posted on XXXX</p>
-
-
             <hr>
-
 
             <!-- Post Content -->
-            <p class="lead">Gamous ID: </p>
+            <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingOne">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Burial Site Location: </a>
+                        </h5>
+                    </div>
+
+
+
+
+                    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="card-body">
+                            <p>Gamous ID: @Model.Burial.Gamous</p>
+                            <p>Burial Site ID: @Model.Burial.BurialSiteId</p>
+                            <p>Burial Number: @Model.Burial.BurialNumber</p>
+                            <p>West to Head: @Model.Burial.Burialwesttohead</p>
+                            <p>West to Feet: @Model.Burial.Burialwesttofeet</p>
+                            <p>South to Head: @Model.Burial.Burialsouthtohead</p>
+                            <p>South to Feet: @Model.Burial.Burialsouthtofeet</p>
+                            <p>Burial Depth: @Model.Burial.Burialdepth</p>
+                            <p>Burial Direction: @Model.Burial.BurialDirection</p>
+                            <p>Osteology Notes: @Model.Burial.OsteologyNotes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingTwo">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Burial Info
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="card-body">
+                            <p>Burial Preservation: @Model.Burial.Burialpreservation</p>
+                            <p>Goods: @Model.Burial.Goods</p>
+                            <p>Burial Wrapping: @Model.Burial.Burialwrapping</p>
+                            <p>Burial Adult Child: @Model.Burial.Burialadultchild</p>
+                            <p>Burial Age Method: @Model.Burial.Burialagemethod</p>
+                            <p>Burial Age at Death: @Model.Burial.Burialageatdeath</p>
+                            <p>Burial Sample Taken: @Model.Burial.Burialsampletaken</p>
+                            <p>Length (M): @Model.Burial.LengthM</p>
+                            <p>Cluster: @Model.Burial.Cluster</p>
+                            <p>Face Bundle: @Model.Burial.FaceBundle</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingThree">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Skull Info</a>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="card-body">
+                            <p>Skull at Magazine: @Model.Burial.SkullatMagazine</p>
+                            <p>Skull Trauma: @Model.Burial.SkullTrauma</p>
+                            <p>Cribra Orbitalia: @Model.Burial.CribraOrbitala</p>
+                            <p>Porotic Hyperostosis: @Model.Burial.PoroticHyperostosis</p>
+                            <p>Porotic Hyperostosis (LOCATIONS): @Model.Burial.PoroticHyperostosisLocations</p>
+                            <p>Metopic Suture: @Model.Burial.MetopicSuture</p>
+                            <p>Button Osteoma: @Model.Burial.ButtonOsteoma</p>
+                            <p>Temporomandibular Joint Osteoarthritis (TMJ OA): @Model.Burial.TemporalMandibularJointOsteoarthritisTmjoa</p>
+                            <p>Linear Hypoplasia Enamel: @Model.Burial.LinearHypoplasiaEnamel</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingFour">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Body Info</a>
+                        </h5>
+                    </div>
+                    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+                        <div class="card-body">
+                            <p>Length: @Model.Burial.Length</p>
+                            <p>Age Code SINGLE: @Model.Burial.AgeCodeSingle</p>
+                            <p>Body Analysis: @Model.Burial.BodyAnalysis</p>
+                            <p>Postcrania at Magazine: @Model.Burial.PostcraniaatMagazine</p>
+                            <p>Sex (Skull; 2018): @Model.Burial.SexSkull2018</p>
+                            <p>Age (Skull; 2018): @Model.Burial.AgeSkull2018</p>
+                            <p>Postcrania Trauma: @Model.Burial.PostcraniaTrauma</p>
+                            <p>Gender Code: @Model.Burial.GenderCode</p>
+                            <p>Hair Color Code: @Model.Burial.HairColorCode</p>
+                            <p>Burial Gender Method: @Model.Burial.Burialgendermethod</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingFive">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Dating Info</a>
+                        </h5>
+                    </div>
+                    <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
+                        <div class="card-body">
+                            <p>Year on Skull: @Model.Burial.Yearonskull</p>
+                            <p>Month on Skull: @Model.Burial.Monthonskull</p>
+                            <p>Date on Skull: @Model.Burial.DateonSkull</p>
+                            <p>Year Excavated: @Model.Burial.Yearexcav</p>
+                            <p>Month Excavated: @Model.Burial.MonthExcavated</p>
+                            <p>Date Excavated: @Model.Burial.DateExcavated</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingSix">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">Other Notes</a>
+                        </h5>
+                    </div>
+                    <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix">
+                        <div class="card-body">
+                            <p>Osteology Unknown Comment: @Model.Burial.Osteologyunknowncomment</p>
+                            <p>Initals of Data Entry Expert: @Model.Burial.InitialsofDataEntryExpert</p>
+                            <p>Initials of Data Entry Checker: @Model.Burial.InitialsofDataEntryChecker</p>
+                            <p>BYU Sample: @Model.Burial.Byusample</p>
+                            <p>Rack and Shelf: @Model.Burial.RackandShelf</p>
+                            <p>TO BE CONFIRMED: @Model.Burial.Tobeconfirmed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-
-            <p>Burial Site ID: </p>
-
-
-            <p>Burial Number: </p>
-
-
-            <p>West to Head: </p>
-
-
-            <p>West to Feet: </p>
-
-
-            <p>South to Head: </p>
-
-
-            <p>South to Feet: </p>
-
-
-            <p>Burial Depth: </p>
-
-
-            <p>Length: </p>
-
-
-            <p>Goods: </p>
-
-
-            <p>Year on Skull: </p>
-
-
-            <p>Month on Skull: </p>
-
-
-            <p>Date on Skull: </p>
-
-
-            <p>Initals of Data Entry Expert: </p>
-
-
-            <p>Initials of Data Entry Checker: </p>
-
-
-            <p>BYU Sample: </p>
-
-
-            <p>Body Analysis: </p>
-
-
-            <p>Skull at Magazine: </p>
-
-
-            <p>Postcrania at Magazine: </p>
-
-
-            <p>Sex (Skull; 2018): </p>
-
-
-            <p>Age (Skull; 2018): </p>
-
-
-            <p>Rack and Shelf: </p>
-
-
-            <p>TO BE CONFIRMED: </p>
-
-
-            <p>Skull Trauma: </p>
-
-
-            <p>Postcrania Trauma: </p>
-
-
-            <p>Cribra Orbitala: </p>
-
-
-            <p>Porotic Hyperostosis: </p>
-
-
-            <p>Porotic Hyperostosis (LOCATIONS): </p>
-
-
-            <p>Metopic Suture: </p>
-
-
-            <p>Button Osteoma: </p>
-
-
-            <p>Osteology Unknown Comment: </p>
-
-
-            <p>Temporal Mandibular Joint Osteoarthritis (TMJ OA): </p>
-
-
-            <p>Linear Hypoplasia Enamel: </p>
-
-
-            <p>Year Excavated: </p>
-
-
-            <p>Month Excavated: </p>
-
-
-            <p>Date Excavated: </p>
-
-
-            <p>Burial Preservation: </p>
-
-
-            <p>Burial Wrapping: </p>
-
-
-            <p>Burial Adult Child: </p>
-
-
-            <p>Gender Code: </p>
-
-
-            <p>Burial Gender Method: </p>
-
-
-            <p>Age Code SINGLE: </p>
-
-
-            <p>Burial Direction: </p>
-
-
-            <p>Burial Age at Death: </p>
-
-
-            <p>Burial Age Method: </p>
-
-
-            <p>Hair Color Code: </p>
-
-
-            <p>Burial Sample Taken: </p>
-
-
-            <p>Length (M): </p>
-
-
-            <p>Cluster: </p>
-
-
-            <p>Face Bundle: </p>
-
-
-            <p>Osteology Notes: </p>
-
-
-
-            <!--<blockquote class="blockquote">
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                <footer class="blockquote-footer">
-                    Someone famous in
-                    <cite title="Source Title">Source Title</cite>
-                </footer>
-            </blockquote>-->
-            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>-->
-
-
-            <hr>
 
 
             <!-- Comments Form -->
-            <div class="card my-4">
+            @*<div class="card my-4">
                 <h5 class="card-header">Leave a Comment:</h5>
                 <div class="card-body">
                     <form>
@@ -227,55 +174,12 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
-            </div>
-
-
-            <!-- Single Comment -->
-            <div class="media mb-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                    <h5 class="mt-0">Jack Seal</h5>
-                    Fag el Gamous is dope nasty yo!
-                </div>
-            </div>
-
-
-            <!-- Comment with nested comments -->
-            <div class="media mb-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                    <h5 class="mt-0">Addison Howard</h5>
-                    Might mess around and go eat some cashews,,, How bout that?
-
-
-                    <div class="media mt-4">
-                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                        <div class="media-body">
-                            <h5 class="mt-0">Trevi Fountain</h5>
-                            Do it! Get it on video though,
-                        </div>
-                    </div>
-
-
-                    <div class="media mt-4">
-                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                        <div class="media-body">
-                            <h5 class="mt-0">Jenna Weller</h5>
-                            I'll just be in my breakout room, Let me know when it goes down in messages,
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-
+            </div>*@
         </div>
 
 
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
-
 
             <!-- Search Widget -->
             <div class="card mb-4">
@@ -289,7 +193,6 @@
                     </div>
                 </div>
             </div>
-
 
             <!-- Categories Widget -->
             <div class="card my-4">
@@ -335,13 +238,8 @@
                 </div>
             </div>
 
-
         </div>
-
-
     </div>
     <!-- /.row -->
-
-
 </div>
 <!-- /.container -->

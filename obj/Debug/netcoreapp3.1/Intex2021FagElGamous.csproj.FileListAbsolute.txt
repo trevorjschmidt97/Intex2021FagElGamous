@@ -435,3 +435,4 @@ C:/Users/jenna/Downloads/intexparty/Intex2021FagElGamous/obj/Debug/netcoreapp3.1
 /Users/trevorschmidt/Desktop/intex2.1/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.dll
 /Users/trevorschmidt/Desktop/intex2.1/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.pdb
 /Users/trevorschmidt/Desktop/intex2.1/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Intex2021FagElGamous.genruntimeconfig.cache
+/Users/trevorschmidt/Desktop/intex2.1/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddFieldBook.cshtml.g.cs

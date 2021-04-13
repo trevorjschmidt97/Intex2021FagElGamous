@@ -59,9 +59,11 @@ namespace Intex2021FagElGamous.Controllers
         public IActionResult Index()
         {
             GlobalBurials = context.Burials.ToList();
-
+            
             return View();
         }
+
+        //OrderByDescending(o => o.FieldBooksId).ToList();
 
         [HttpGet]
         public IActionResult ViewBurials(int pageNum = 1)
@@ -408,17 +410,62 @@ namespace Intex2021FagElGamous.Controllers
             vbvm.C14Data = c14Data;
             vbvm.CranialMains = cranialMains;
             vbvm.FieldBooks = fieldBooks;
-
+            // add image urls
 
             return View(vbvm);
         }
 
-
         // ------------------------------ Resricted Section--------------------
+
+        [HttpGet]
+        public IActionResult AddFieldBook()
+        {
+            if (GlobalStatic.role == "No Role")
+            {
+                return View("Index");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddFieldBook(AddFieldBookViewModel afbvm)
+        {
+            if (GlobalStatic.role == "No Role")
+            {
+                return View("Index");
+            }
+
+            string burialSiteId = context
+                .BurialSites
+                .FromSqlRaw("SELECT * FROM BurialSite WHERE N/S = {0} AND NSTop = {1} AND E/W = {2} AND EWTop = {3} AND Quadrant = {4}", afbvm.NS, afbvm.NSTop, afbvm.EW, afbvm.EWTop, afbvm.Quadrant)
+                .ToList()
+                .First()
+                .BurialSiteId.ToString();
+
+            //field book id
+            int maxId = (int)context.FieldBooks.Max(o => o.FieldBooksId);
+            int fieldBooksId = maxId + 1;
+
+            FieldBook fieldBook = new FieldBook
+            {
+                FieldBooksId = fieldBooksId,
+                BurialSiteId = Convert.ToInt64(burialSiteId),
+                BurialNumber = afbvm.BurialNumber,
+                FieldBook1 = afbvm.FieldBook1,
+                FieldBookPageNumber = afbvm.FieldBookPageNumber
+            };
+
+            context.FieldBooks.Add(fieldBook);
+            context.SaveChanges();
+
+            return View();
+        }
+
         [HttpGet]
         public IActionResult AddBurial()
         {
-            if (GlobalStatic.role != "Admin")
+            if (GlobalStatic.role == "No Role")
             {
                 return View("Index");
             }
@@ -429,7 +476,7 @@ namespace Intex2021FagElGamous.Controllers
         [HttpPost]
         public IActionResult AddBurial(AddMummyViewModel mummy)
         {
-            if (GlobalStatic.role != "Admin")
+            if (GlobalStatic.role == "No Role")
             {
                 return View("Index");
             }
