@@ -5,12 +5,11 @@ using System.Collections.Generic;
 
 namespace Intex2021FagElGamous.Models
 {
-    public partial class FieldBook
+    public partial class Image
     {
-        public int FieldBooksId { get; set; }
+        public int ImageId { get; set; }
         public int? BurialSiteId { get; set; }
         public int? BurialNumber { get; set; }
-        public string FieldBook1 { get; set; }
-        public string FieldBookPageNumber { get; set; }
+        public string Url { get; set; }
     }
 }

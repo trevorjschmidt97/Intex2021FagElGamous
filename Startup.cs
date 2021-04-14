@@ -27,9 +27,18 @@ namespace Intex2021FagElGamous
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<FagElGamousBYUDBContext>(options =>
-               options.UseSqlite(Configuration["ConnectionStrings:ContextConnectionString"]
-           ));
+           // services.AddDbContext<FagElGamousBYUDBContext>(options =>
+           //    options.UseSqlite(Configuration["ConnectionStrings:ContextConnectionString"]
+           //));
+
+
+            services.AddDbContext<intex2021Context>(options =>
+            {
+                options.UseNpgsql(Configuration["ConnectionStrings:postgresConnection"]);
+            });
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

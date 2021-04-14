@@ -7,15 +7,15 @@ namespace Intex2021FagElGamous.Models
 {
     public partial class BiologicalSample
     {
-        public long? BioSampleId { get; set; }
+        public int BioSampleId { get; set; }
         public string RackBag { get; set; }
-        public long? RackBagNum { get; set; }
-        public long? BurialSiteId { get; set; }
-        public long? Burial { get; set; }
+        public int? RackBagNum { get; set; }
+        public int? BurialSiteId { get; set; }
+        public int? Burial { get; set; }
         public string Date { get; set; }
         public string PreviouslySampled { get; set; }
         public string Notes { get; set; }
         public string Initials { get; set; }
-        public string Cluster { get; set; }
+        public int? Cluster { get; set; }
     }
 }

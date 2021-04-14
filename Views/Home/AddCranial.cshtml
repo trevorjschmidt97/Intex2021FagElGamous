@@ -60,24 +60,20 @@
         <h4>Buried with Artifacts?</h4>
         <span class="radio-ghost-fill"></span>
         <label>
-            <input required asp-for="BuriedwithArtifacts" value="True" type="radio" />
+            <input required asp-for="BuriedWithArtifacts" value="True" type="radio" />
             <span class="radio-ghost funkay"></span>
             Yes
         </label>
         <label>
-            <input required asp-for="BuriedwithArtifacts" value="False" type="radio" />
+            <input required asp-for="BuriedWithArtifacts" value="False" type="radio" />
             <span class="radio-ghost funkay"></span>
             No
         </label>
+     
         <div class="form-group">
-            <label asp-for="GilesGender">Giles Gender:</label>
-            <input class="form-control" required asp-for="GilesGender" />
-        </div>
-        <div class="form-group">
-            <label asp-for="BodyGender">Body Gender:</label>
+            <label>Body Gender:</label>
             <input class="form-control" required asp-for="BodyGender" />
         </div>
-
 
         <button type="submit" class="btn btn-dark">Submit</button>
     </form>

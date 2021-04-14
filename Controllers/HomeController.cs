@@ -17,14 +17,14 @@ namespace Intex2021FagElGamous.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private FagElGamousBYUDBContext context { get; set; }
+        private intex2021Context context { get; set; }
         private int saltLength = 15;
         private int iterationLength = 200000;
         private int pageSize { get; set; } = 10;
 
         private static List<Burial> GlobalBurials { get; set; }
 
-        public HomeController(ILogger<HomeController> logger, FagElGamousBYUDBContext ctx)
+        public HomeController(ILogger<HomeController> logger, intex2021Context ctx)
         {
             context = ctx;
             _logger = logger;
@@ -105,29 +105,29 @@ namespace Intex2021FagElGamous.Controllers
                     OsteologyNotes = b.OsteologyNotes.ToString();
                 }
 
-                if (!(b.Burialwesttohead is null))
+                if (!(b.BurialWestToHead is null))
                 {
-                    Burialwesttohead = b.Burialwesttohead.ToString();
+                    Burialwesttohead = b.BurialWestToHead.ToString();
                 }
 
-                if (!(b.Burialwesttofeet is null))
+                if (!(b.BurialWestToFeet is null))
                 {
-                    Burialwesttofeet = b.Burialwesttofeet.ToString();
+                    Burialwesttofeet = b.BurialWestToFeet.ToString();
                 }
 
-                if (!(b.Burialsouthtohead is null))
+                if (!(b.BurialSouthToHead is null))
                 {
-                    Burialsouthtohead = b.Burialsouthtohead.ToString();
+                    Burialsouthtohead = b.BurialSouthToHead.ToString();
                 }
 
-                if (!(b.Burialsouthtofeet is null))
+                if (!(b.BurialSouthToFeet is null))
                 {
-                    Burialsouthtofeet = b.Burialsouthtofeet.ToString();
+                    Burialsouthtofeet = b.BurialSouthToFeet.ToString();
                 }
 
-                if (!(b.Burialdepth is null))
+                if (!(b.BurialDepth is null))
                 {
-                    Burialdepth = b.Burialdepth.ToString();
+                    Burialdepth = b.BurialDepth.ToString();
                 }
 
                 if (!(b.Length is null))
@@ -144,30 +144,50 @@ namespace Intex2021FagElGamous.Controllers
                 {
                     GenderCode = b.GenderCode.ToString();
                 }
+               
+                string NS = "";
+                string EW = "";
+                int NSTop = 0;
+                int NSBottom = 0;
+                int EWTop = 0;
+                int EWBottom = 0;
+                string Quadrant = "";
 
-                string NS = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().NS.ToString();
+             
+                BurialSite bs = context.BurialSites.Where(o => o.BurialSiteId == b.BurialSiteId).ToList().First();
+                NS = bs.Ns;
+                EW = bs.Ew;
+                NSTop = bs.Nstop ?? default(int);
+                NSBottom = bs.Nsbottom ?? default(int);
+                EWTop = bs.Ewtop ?? default(int);
+                EWBottom = bs.Ewbottom ?? default(int);
+                Quadrant = bs.Quadrant;
+                //var sql = "SELECT* FROM dbo.BurialSite WHERE BurialSiteId = {0}";
 
-                int NSTop = (int)context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Nstop;
+                ////context.BurialSites.FromSqlInterpolated($"SELECT * FROM dbo.BurialSite")
+                //string NS = context
+                //    .BurialSites
+                //    .FromSqlRaw(sql, b.BurialSiteId).ToList().First().Ns.ToString();
 
-                int NSBottom = NSTop + 10;
+                //int NSTop = (int)context
+                //    .BurialSites
+                //    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Nstop;
 
-                string EW = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().EW.ToString();
+                //int NSBottom = NSTop + 10;
 
-                int EWTop = (int)context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Ewtop;
+                //string EW = context
+                //    .BurialSites
+                //    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Ew.ToString();
 
-                int EWBottom = EWTop + 10;
+                //int EWTop = (int)context
+                //    .BurialSites
+                //    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Ewtop;
 
-                string Quadrant = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Quadrant.ToString();
+                //int EWBottom = EWTop + 10;
+
+                //string Quadrant = context
+                //    .BurialSites
+                //    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Quadrant.ToString();
 
 
                 // add all the info to the vbbm
@@ -212,6 +232,7 @@ namespace Intex2021FagElGamous.Controllers
         [HttpPost]
         public IActionResult ViewBurials(ViewBurialsViewModel vbvm, int pageNum = 1)
         {
+            Console.WriteLine("Starting!!!!!!!!!!!!!!!!!!!");
             ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
 
             // Create a list of burials,
@@ -221,33 +242,28 @@ namespace Intex2021FagElGamous.Controllers
             // filter the global burials
             List<Burial> newBurials = new List<Burial>();
 
-            foreach (Burial bur in context.Burials.ToList())
+            List<Burial> Burials = context.Burials.ToList();
+            foreach (Burial bur in Burials)
             {
-                // get burial site info
-                string NS = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().NS.ToString();
+                Console.WriteLine("At burial: ");
+                Console.WriteLine(bur.BurialNumber);                // get burial site info
 
-                int NSTop = (int)context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().Nstop;
+                string NS = "";
+                string EW = "";
+                int NSTop = 0;
+                int NSBottom = 0;
+                int EWTop = 0;
+                int EWBottom = 0;
+                string Quadrant = "";
 
-                int NSBottom = NSTop + 10;
-
-                string EW = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().EW.ToString();
-
-                int EWTop = (int)context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().Ewtop;
-
-                int EWBottom = EWTop + 10;
-
-                string Quadrant = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", bur.BurialSiteId).ToList().First().Quadrant.ToString();
-
+                BurialSite bs = context.BurialSites.Where(o => o.BurialSiteId == bur.BurialSiteId).ToList().First();
+                NS = bs.Ns;
+                EW = bs.Ew;
+                NSTop = bs.Nstop ?? default(int);
+                NSBottom = bs.Nsbottom ?? default(int);
+                EWTop = bs.Ewtop ?? default(int);
+                EWBottom = bs.Ewbottom ?? default(int);
+                Quadrant = bs.Quadrant;
 
                 //NS
                 if (vbvm.Filter.NS == "N" && NS != "N")
@@ -290,10 +306,10 @@ namespace Intex2021FagElGamous.Controllers
                 }
 
                 //west to head
-                if (bur.Burialwesttohead != null)
+                if (bur.BurialWestToHead != null)
                 {
                     // we are allowed to cast to double
-                    double wth = Convert.ToDouble(bur.Burialwesttohead);
+                    double wth = Convert.ToDouble(bur.BurialWestToHead);
 
                     if (wth < vbvm.Filter.BurialwesttoheadMin || wth > vbvm.Filter.BurialwesttoheadMax)
                     {
@@ -301,16 +317,13 @@ namespace Intex2021FagElGamous.Controllers
                     }
 
                 }
-                //else
-                //{
-                //    continue;
-                //}
+                
 
                 //west to feet
-                if (bur.Burialwesttofeet != null)
+                if (bur.BurialWestToFeet != null)
                 {
                     // we are allowed to cast to double
-                    double wtf = Convert.ToDouble(bur.Burialwesttofeet);
+                    double wtf = Convert.ToDouble(bur.BurialWestToFeet);
 
                     if (wtf < vbvm.Filter.BurialwesttofeetMin || wtf > vbvm.Filter.BurialwesttofeetMax)
                     {
@@ -318,16 +331,12 @@ namespace Intex2021FagElGamous.Controllers
                     }
 
                 }
-                //else
-                //{
-                //    continue;
-                //}
-
+               
                 //south to head
-                if (bur.Burialsouthtohead != null)
+                if (bur.BurialSouthToHead != null)
                 {
                     // we are allowed to cast to double
-                    double sth = Convert.ToDouble(bur.Burialsouthtohead);
+                    double sth = Convert.ToDouble(bur.BurialSouthToHead);
 
                     if (sth < vbvm.Filter.BurialsouthtoheadMin || sth > vbvm.Filter.BurialsouthtoheadMax)
                     {
@@ -335,16 +344,13 @@ namespace Intex2021FagElGamous.Controllers
                     }
 
                 }
-                //else
-                //{
-                //    continue;
-                //}
+               
 
                 //south to feet
-                if (bur.Burialsouthtofeet != null)
+                if (bur.BurialSouthToFeet != null)
                 {
                     // we are allowed to cast to double
-                    double stf = Convert.ToDouble(bur.Burialsouthtofeet);
+                    double stf = Convert.ToDouble(bur.BurialSouthToFeet);
 
                     if (stf < vbvm.Filter.BurialsouthtofeetMin || stf > vbvm.Filter.BurialsouthtofeetMax)
                     {
@@ -352,16 +358,13 @@ namespace Intex2021FagElGamous.Controllers
                     }
 
                 }
-                //else
-                //{
-                //    continue;
-                //}
+              
 
                 //depth
-                if (bur.Burialdepth != null)
+                if (bur.BurialDepth != null)
                 {
                     // we are allowed to cast to double
-                    double d = Convert.ToDouble(bur.Burialdepth);
+                    double d = Convert.ToDouble(bur.BurialDepth);
 
                     if (d < vbvm.Filter.BurialdepthMin || d > vbvm.Filter.BurialdepthMax)
                     {
@@ -369,23 +372,7 @@ namespace Intex2021FagElGamous.Controllers
                     }
 
                 }
-                //else
-                //{
-                //    continue;
-                //}
-
-                //year on skull
-                if (bur.Yearonskull != null)
-                {
-                    // we are allowed to cast to double
-                    int d = int.Parse(bur.Yearonskull);
-
-                    if (d < vbvm.Filter.YearonskullMin || d > vbvm.Filter.YearonskullMax)
-                    {
-                        continue;
-                    }
-
-                }
+               
 
                 // goods
                 if (vbvm.Filter.Goods == "All")
@@ -411,27 +398,18 @@ namespace Intex2021FagElGamous.Controllers
                 {
                     // include everything
                 }
-                else if (vbvm.Filter.Byusample != bur.Byusample)
+                else if (vbvm.Filter.Byusample != bur.ByuSample)
                 {
                     continue;
                 }
 
-                // body analysis
-                if (vbvm.Filter.BodyAnalysis == "All")
-                {
-                    // include everything
-                }
-                else if (vbvm.Filter.BodyAnalysis != bur.BodyAnalysis)
-                {
-                    continue;
-                }
 
                 // skullmagazine
                 if (vbvm.Filter.SkullatMagazine == "All")
                 {
                     // include everything
                 }
-                else if (vbvm.Filter.SkullatMagazine != bur.SkullatMagazine)
+                else if (vbvm.Filter.SkullatMagazine != bur.SkullAtMagazine)
                 {
                     continue;
                 }
@@ -441,7 +419,7 @@ namespace Intex2021FagElGamous.Controllers
                 {
                     // include everything
                 }
-                else if (vbvm.Filter.AgeSkull2018 != bur.AgeSkull2018)
+                else if (vbvm.Filter.AgeSkull2018 != bur.AgeSkull)
                 {
                     continue;
                 }
@@ -451,7 +429,7 @@ namespace Intex2021FagElGamous.Controllers
                 {
                     // include everything
                 }
-                else if (vbvm.Filter.SexSkull2018 != bur.SexSkull2018)
+                else if (vbvm.Filter.SexSkull2018 != bur.SexSkull)
                 {
                     continue;
                 }
@@ -459,42 +437,39 @@ namespace Intex2021FagElGamous.Controllers
 
                 newBurials.Add(bur);
             }
+            Console.WriteLine("Outingside of the filtering!!!!!!!!!!!!!!!!!!");
 
             GlobalBurials = newBurials;
 
-            List<Burial> Burials = GlobalBurials
+            List<Burial> Burialss = GlobalBurials
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
                     .OrderBy(o => o.BurialSiteId)
                     .ToList();
 
             // for each burial in our db
-            foreach (Burial b in Burials)
+            foreach (Burial b in Burialss)
             {
+
+                Console.WriteLine("inside the newxt lop");
                 // get burial site info
-                string NS = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().NS.ToString();
 
-                int NSTop = (int)context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Nstop;
+                string NS = "";
+                string EW = "";
+                int NSTop = 0;
+                int NSBottom = 0;
+                int EWTop = 0;
+                int EWBottom = 0;
+                string Quadrant = "";
 
-                int NSBottom = NSTop + 10;
-
-                string EW = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().EW.ToString();
-
-                int EWTop = (int)context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Ewtop;
-
-                int EWBottom = EWTop + 10;
-
-                string Quadrant = context
-                    .BurialSites
-                    .FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", b.BurialSiteId).ToList().First().Quadrant.ToString();
+                BurialSite bs = context.BurialSites.Where(o => o.BurialSiteId == b.BurialSiteId).ToList().First();
+                NS = bs.Ns;
+                EW = bs.Ew;
+                NSTop = bs.Nstop ?? default(int);
+                NSBottom = bs.Nsbottom ?? default(int);
+                EWTop = bs.Ewtop ?? default(int);
+                EWBottom = bs.Ewbottom ?? default(int);
+                Quadrant = bs.Quadrant;
 
                 // create a burials model
                 ViewBurialsBurialModel vbbm = new ViewBurialsBurialModel();
@@ -519,29 +494,29 @@ namespace Intex2021FagElGamous.Controllers
                     OsteologyNotes = b.OsteologyNotes.ToString();
                 }
 
-                if (!(b.Burialwesttohead is null))
+                if (!(b.BurialWestToHead is null))
                 {
-                    Burialwesttohead = b.Burialwesttohead.ToString();
+                    Burialwesttohead = b.BurialWestToHead.ToString();
                 }
 
-                if (!(b.Burialwesttofeet is null))
+                if (!(b.BurialWestToFeet is null))
                 {
-                    Burialwesttofeet = b.Burialwesttofeet.ToString();
+                    Burialwesttofeet = b.BurialWestToFeet.ToString();
                 }
 
-                if (!(b.Burialsouthtohead is null))
+                if (!(b.BurialSouthToHead is null))
                 {
-                    Burialsouthtohead = b.Burialsouthtohead.ToString();
+                    Burialsouthtohead = b.BurialSouthToHead.ToString();
                 }
 
-                if (!(b.Burialsouthtofeet is null))
+                if (!(b.BurialSouthToFeet is null))
                 {
-                    Burialsouthtofeet = b.Burialsouthtofeet.ToString();
+                    Burialsouthtofeet = b.BurialSouthToFeet.ToString();
                 }
 
-                if (!(b.Burialdepth is null))
+                if (!(b.BurialDepth is null))
                 {
-                    Burialdepth = b.Burialdepth.ToString();
+                    Burialdepth = b.BurialDepth.ToString();
                 }
 
                 if (!(b.Length is null))
@@ -581,6 +556,8 @@ namespace Intex2021FagElGamous.Controllers
 
                 vbbmList.Add(vbbm);
             }
+
+            Console.WriteLine("outside the last loop!!!!!!!!!!!!!!");
             viewModel.Burials = vbbmList;
 
             //kinda like a constructor
@@ -604,26 +581,26 @@ namespace Intex2021FagElGamous.Controllers
         public IActionResult ViewMummy(ViewBurialsBurialModel v)
         {
             // This is the burial we are looking at
-            Burial b = context.Burials.FromSqlRaw("SELECT * FROM Burial WHERE BurialSiteId = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList().First();
-
-            BurialSite bs = context.BurialSites.FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", v.BurialSiteId).ToList().First();
-
-            List<CranialMain> cranialMains = context.CranialMains.FromSqlRaw("SELECT * FROM CranialMain WHERE BurialSiteId = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList();
-            List<C14datum> c14Data = context.C14data.FromSqlRaw("SELECT * FROM C14Data WHERE BurialSiteId = {0} AND \"Burial#\" = {1}", v.BurialSiteId, v.BurialNumber).ToList();
-            List<FieldBook> fieldBooks = context.FieldBooks.FromSqlRaw("SELECT * FROM FieldBooks WHERE BurialSiteID = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList();
+            //Burial b = context.Burials.FromSqlRaw("SELECT * FROM Burial WHERE BurialSiteId = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList().First();
+            Burial b = context.Burials.Where(o => o.BurialSiteId == v.BurialSiteId).Where(p => p.BurialNumber == v.BurialNumber).ToList().First();
+            //BurialSite bs = context.BurialSites.FromSqlRaw("SELECT * FROM BurialSite WHERE BurialSiteId = {0}", v.BurialSiteId).ToList().First();
+            BurialSite bs = context.BurialSites.Where(o => o.BurialSiteId == v.BurialSiteId).ToList().First();
+            //List<CranialMain> cranialMains = context.CranialMains.FromSqlRaw("SELECT * FROM CranialMain WHERE BurialSiteId = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList();
+            //List<C14datum> c14Data = context.C14data.FromSqlRaw("SELECT * FROM C14Data WHERE BurialSiteId = {0} AND \"Burial#\" = {1}", v.BurialSiteId, v.BurialNumber).ToList();
+            //List<FieldBook> fieldBooks = context.FieldBooks.FromSqlRaw("SELECT * FROM FieldBooks WHERE BurialSiteID = {0} AND BurialNumber = {1}", v.BurialSiteId, v.BurialNumber).ToList();
 
             ViewBurialViewModel vbvm = new ViewBurialViewModel();
             vbvm.Burial = b;
             vbvm.BurialSite = bs;
-            vbvm.C14Data = c14Data;
-            vbvm.CranialMains = cranialMains;
-            vbvm.FieldBooks = fieldBooks;
+            //vbvm.C14Data = c14Data;
+            //vbvm.CranialMains = cranialMains;
+            //vbvm.FieldBooks = fieldBooks;
             // add image urls
 
             return View(vbvm);
         }
 
-        // ------------------------------ Resricted Section--------------------
+        // ------------------------------ Restricted Section--------------------
 
         public IActionResult EditMummy(Burial b)
         {
@@ -651,12 +628,15 @@ namespace Intex2021FagElGamous.Controllers
                 return View("Index");
             }
 
-            string burialSiteId = context
-                .BurialSites
-                .FromSqlRaw("SELECT * FROM BurialSite WHERE [N/S] = {0} AND NSTop = {1} AND [E/W] = {2} AND EWTop = {3} AND Quadrant = {4}", afbvm.NS, afbvm.Nstop, afbvm.EW, afbvm.Ewtop, afbvm.Quadrant)
-                .ToList()
-                .First()
-                .BurialSiteId.ToString();
+            //string burialSiteId = context
+            //    .BurialSites
+            //    .FromSqlRaw("SELECT * FROM BurialSite WHERE Ns = {0} AND NSTop = {1} AND Ew = {2} AND EWTop = {3} AND Quadrant = {4}", afbvm.NS, afbvm.Nstop, afbvm.EW, afbvm.Ewtop, afbvm.Quadrant)
+            //    .ToList()
+            //    .First()
+            //    .BurialSiteId.ToString();
+
+            //Burial b = context.Burials.Where(o => o.BurialSiteId == v.BurialSiteId).Where(p => p.BurialNumber == v.BurialNumber).ToList().First();
+            string burialSiteId = context.BurialSites.Where(o => o.Ns == afbvm.NS).Where(o => o.Ew == afbvm.EW).Where(o => o.Nstop == afbvm.Nstop).Where(o => o.Ewtop == afbvm.Ewtop).Where(o => o.Quadrant == afbvm.Quadrant).ToList().First().BurialSiteId.ToString();
 
             //field book id
             int maxId = (int)context.FieldBooks.Max(o => o.FieldBooksId);
@@ -665,7 +645,7 @@ namespace Intex2021FagElGamous.Controllers
             FieldBook fieldBook = new FieldBook
             {
                 FieldBooksId = fieldBooksId,
-                BurialSiteId = Convert.ToInt64(burialSiteId),
+                BurialSiteId = Int32.Parse(burialSiteId),
                 BurialNumber = afbvm.BurialNumber,
                 FieldBook1 = afbvm.FieldBook1,
                 FieldBookPageNumber = afbvm.FieldBookPageNumber
@@ -696,7 +676,59 @@ namespace Intex2021FagElGamous.Controllers
                 return View("Index");
             }
 
-            return View();
+
+
+            Burial burial = new Burial
+            {
+                BurialSiteId = 8,
+                BurialWestToHead = Int32.Parse(mummy.Burialwesttohead),
+                BurialWestToFeet = Int32.Parse(mummy.Burialwesttofeet),
+                BurialSouthToHead = Int32.Parse(mummy.Burialsouthtohead),
+                BurialSouthToFeet = Int32.Parse(mummy.Burialsouthtofeet),
+                BurialDepth = Int32.Parse(mummy.Burialdepth),
+                Length = Int32.Parse(mummy.Length),
+                Goods = mummy.Goods,
+                YearOnSkull = Int32.Parse(mummy.Yearonskull),
+                MonthOnSkull = mummy.Monthonskull,
+                DateOnSkull = Int32.Parse(mummy.DateonSkull),
+                InitialsOfDataEntryChecker = mummy.InitialsofDataEntryChecker,
+                InitialsOfDataEntryExpert = mummy.InitialsofDataEntryExpert,
+                ByuSample = mummy.Byusample,
+                SkullAtMagazine = mummy.SkullatMagazine,
+                PostcraniaAtMagazine = mummy.PostcraniaatMagazine,
+                SexSkull = mummy.SexSkull2018,
+                AgeSkull = mummy.AgeSkull2018,
+                RackandShelf = mummy.RackandShelf,
+                SkullTrauma = mummy.SkullTrauma,
+                PostcraniaTrauma = mummy.PostcraniaTrauma,
+                CribraOrbitala = mummy.CribraOrbitala,
+                PoroticHyperostosis = mummy.PoroticHyperostosis,
+                PoroticHyperostosisLocations = mummy.PoroticHyperostosis,
+                MetopicSuture = mummy.MetopicSuture,
+                Tmjoa = mummy.TemporalMandibularJointOsteoarthritisTmjoa,
+                LinearHypoplasiaEnamel = mummy.LinearHypoplasiaEnamel,
+                YearExcav = Int32.Parse(mummy.Yearexcav),
+                MonthExcavated = mummy.MonthExcavated,
+                DateExcavated = Int32.Parse(mummy.DateExcavated),
+                BurialPreservation = mummy.Burialpreservation,
+                BurialWrapping = mummy.Burialwrapping,
+                BurialAdultChild = mummy.Burialadultchild,
+                AgeCodeSingle = mummy.AgeCodeSingle,
+                BurialDirection = mummy.BurialDirection,
+                Burialageatdeath = mummy.Burialageatdeath,
+                Burialagemethod = mummy.Burialagemethod,
+                HairColorCode = mummy.HairColorCode,
+                Burialsampletaken = mummy.Burialsampletaken,
+                LengthM = Int32.Parse(mummy.LengthM),
+                Cluster = mummy.Cluster,
+                FaceBundle = mummy.FaceBundle,
+                OsteologyNotes = mummy.OsteologyNotes
+            };
+
+            context.Burials.Add(burial);
+            context.SaveChanges();
+
+            return View("Index");
         }
 
         public IActionResult Admin()

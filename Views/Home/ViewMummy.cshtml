@@ -8,7 +8,7 @@
 <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-   <h1 class="mt-4 mb-3">@Model.BurialSite.NS @Model.BurialSite.Nstop/@Model.BurialSite.Nsbottom @Model.BurialSite.EW @Model.BurialSite.Ewtop/@Model.BurialSite.Ewbottom #@Model.Burial.BurialNumber</h1>
+   <h1 class="mt-4 mb-3">@Model.BurialSite.Ns @Model.BurialSite.Nstop/@Model.BurialSite.Nsbottom @Model.BurialSite.Ew @Model.BurialSite.Ewtop/@Model.BurialSite.Ewbottom #@Model.Burial.BurialNumber</h1>
 
     <div class="row">
         <!-- Post Content Column -->
@@ -29,11 +29,11 @@
                             <p>Gamous ID: @Model.Burial.Gamous</p>
                             <p>Burial Site ID: @Model.Burial.BurialSiteId</p>
                             <p>Burial Number: @Model.Burial.BurialNumber</p>
-                            <p>West to Head: @Model.Burial.Burialwesttohead</p>
-                            <p>West to Feet: @Model.Burial.Burialwesttofeet</p>
-                            <p>South to Head: @Model.Burial.Burialsouthtohead</p>
-                            <p>South to Feet: @Model.Burial.Burialsouthtofeet</p>
-                            <p>Burial Depth: @Model.Burial.Burialdepth</p>
+                            <p>West to Head: @Model.Burial.BurialWestToHead</p>
+                            <p>West to Feet: @Model.Burial.BurialWestToFeet</p>
+                            <p>South to Head: @Model.Burial.BurialSouthToHead</p>
+                            <p>South to Feet: @Model.Burial.BurialSouthToFeet</p>
+                            <p>Burial Depth: @Model.Burial.BurialDepth</p>
                             <p>Burial Direction: @Model.Burial.BurialDirection</p>
                             <p>Osteology Notes: @Model.Burial.OsteologyNotes</p>
                         </div>
@@ -49,10 +49,10 @@
                     </div>
                     <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="card-body">
-                            <p>Burial Preservation: @Model.Burial.Burialpreservation</p>
+                            <p>Burial Preservation: @Model.Burial.BurialPreservation</p>
                             <p>Goods: @Model.Burial.Goods</p>
-                            <p>Burial Wrapping: @Model.Burial.Burialwrapping</p>
-                            <p>Burial Adult Child: @Model.Burial.Burialadultchild</p>
+                            <p>Burial Wrapping: @Model.Burial.BurialWrapping</p>
+                            <p>Burial Adult Child: @Model.Burial.BurialAdultChild</p>
                             <p>Burial Age Method: @Model.Burial.Burialagemethod</p>
                             <p>Burial Age at Death: @Model.Burial.Burialageatdeath</p>
                             <p>Burial Sample Taken: @Model.Burial.Burialsampletaken</p>
@@ -70,14 +70,13 @@
                     </div>
                     <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
                         <div class="card-body">
-                            <p>Skull at Magazine: @Model.Burial.SkullatMagazine</p>
+                            <p>Skull at Magazine: @Model.Burial.SkullAtMagazine</p>
                             <p>Skull Trauma: @Model.Burial.SkullTrauma</p>
                             <p>Cribra Orbitalia: @Model.Burial.CribraOrbitala</p>
                             <p>Porotic Hyperostosis: @Model.Burial.PoroticHyperostosis</p>
                             <p>Porotic Hyperostosis (LOCATIONS): @Model.Burial.PoroticHyperostosisLocations</p>
                             <p>Metopic Suture: @Model.Burial.MetopicSuture</p>
-                            <p>Button Osteoma: @Model.Burial.ButtonOsteoma</p>
-                            <p>Temporomandibular Joint Osteoarthritis (TMJ OA): @Model.Burial.TemporalMandibularJointOsteoarthritisTmjoa</p>
+                            <p>Temporomandibular Joint Osteoarthritis (TMJ OA): @Model.Burial.Tmjoa</p>
                             <p>Linear Hypoplasia Enamel: @Model.Burial.LinearHypoplasiaEnamel</p>
                         </div>
                     </div>
@@ -93,13 +92,12 @@
                             <p>Length: @Model.Burial.Length</p>
                             <p>Age Code SINGLE: @Model.Burial.AgeCodeSingle</p>
                             <p>Body Analysis: @Model.Burial.BodyAnalysis</p>
-                            <p>Postcrania at Magazine: @Model.Burial.PostcraniaatMagazine</p>
-                            <p>Sex (Skull; 2018): @Model.Burial.SexSkull2018</p>
-                            <p>Age (Skull; 2018): @Model.Burial.AgeSkull2018</p>
+                            <p>Postcrania at Magazine: @Model.Burial.PostcraniaAtMagazine</p>
+                            <p>Sex (Skull; 2018): @Model.Burial.SexSkull</p>
+                            <p>Age (Skull; 2018): @Model.Burial.AgeSkull</p>
                             <p>Postcrania Trauma: @Model.Burial.PostcraniaTrauma</p>
                             <p>Gender Code: @Model.Burial.GenderCode</p>
                             <p>Hair Color Code: @Model.Burial.HairColorCode</p>
-                            <p>Burial Gender Method: @Model.Burial.Burialgendermethod</p>
                         </div>
                     </div>
                 </div>
@@ -113,10 +111,10 @@
                     </div>
                     <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
                         <div class="card-body">
-                            <p>Year on Skull: @Model.Burial.Yearonskull</p>
-                            <p>Month on Skull: @Model.Burial.Monthonskull</p>
-                            <p>Date on Skull: @Model.Burial.DateonSkull</p>
-                            <p>Year Excavated: @Model.Burial.Yearexcav</p>
+                            <p>Year on Skull: @Model.Burial.YearOnSkull</p>
+                            <p>Month on Skull: @Model.Burial.MonthOnSkull</p>
+                            <p>Date on Skull: @Model.Burial.DateOnSkull</p>
+                            <p>Year Excavated: @Model.Burial.YearExcav</p>
                             <p>Month Excavated: @Model.Burial.MonthExcavated</p>
                             <p>Date Excavated: @Model.Burial.DateExcavated</p>
                         </div>
@@ -130,12 +128,10 @@
                     </div>
                     <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix">
                         <div class="card-body">
-                            <p>Osteology Unknown Comment: @Model.Burial.Osteologyunknowncomment</p>
-                            <p>Initals of Data Entry Expert: @Model.Burial.InitialsofDataEntryExpert</p>
-                            <p>Initials of Data Entry Checker: @Model.Burial.InitialsofDataEntryChecker</p>
-                            <p>BYU Sample: @Model.Burial.Byusample</p>
+                            <p>Initals of Data Entry Expert: @Model.Burial.InitialsOfDataEntryExpert</p>
+                            <p>Initials of Data Entry Checker: @Model.Burial.InitialsOfDataEntryChecker</p>
+                            <p>BYU Sample: @Model.Burial.ByuSample</p>
                             <p>Rack and Shelf: @Model.Burial.RackandShelf</p>
-                            <p>TO BE CONFIRMED: @Model.Burial.Tobeconfirmed</p>
                         </div>
                     </div>
                 </div>

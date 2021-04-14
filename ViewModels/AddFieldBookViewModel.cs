@@ -10,8 +10,8 @@ namespace Intex2021FagElGamous.ViewModels
         public int Nstop { get; set; }
         public int Ewtop { get; set; }
         public string Quadrant { get; set; }
-        public long? BurialNumber { get; set; }
+        public int BurialNumber { get; set; }
         public string FieldBook1 { get; set; }
-        public long? FieldBookPageNumber { get; set; }
+        public string FieldBookPageNumber { get; set; }
     }
 }

@@ -38,7 +38,7 @@ namespace Intex2021FagElGamous.Models
         public int YearonskullMax { get; set; }
         public string Byusample { get; set; }
         public long? BurialNumber { get; set; }
-        public string BodyAnalysis { get; set; }
+        public int BodyAnalysis { get; set; }
         public string SkullatMagazine { get; set; }
         public string SexSkull2018 { get; set; }
         public string AgeSkull2018 { get; set; }
