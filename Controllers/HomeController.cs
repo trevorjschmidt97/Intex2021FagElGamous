@@ -22,11 +22,6 @@ namespace Intex2021FagElGamous.Controllers
         private int iterationLength = 200000;
         private int pageSize { get; set; } = 10;
 
-        private static ViewBurialViewModel? MummyToDelete { get; set; }
-
-        //set to true when we want to edit a mummy
-        private static bool FromEdit { get; set; } = false;
-
         private static List<Burial> GlobalBurials { get; set; }
 
         public HomeController(ILogger<HomeController> logger, FagElGamousBYUDBContext ctx)
@@ -68,14 +63,12 @@ namespace Intex2021FagElGamous.Controllers
             return View();
         }
 
-        //OrderByDescending(o => o.FieldBooksId).ToList();
-
 
         [HttpGet]
         public IActionResult ViewBurials(int pageNum = 1)
         {
 
-            ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
+           ViewBurialsViewModel viewModel = new ViewBurialsViewModel();
 
             // Create a list of burials,
             // but not the normal ones, just with the info we want to see
@@ -106,7 +99,6 @@ namespace Intex2021FagElGamous.Controllers
                 string Length = null;
                 string Goods = null;
                 string GenderCode = null;
-
 
                 if (!(b.OsteologyNotes is null))
                 {
@@ -399,8 +391,7 @@ namespace Intex2021FagElGamous.Controllers
                 if (vbvm.Filter.Goods == "All")
                 {
                     // include everything
-                }
-                else if (vbvm.Filter.Goods != bur.Goods)
+                } else if (vbvm.Filter.Goods != bur.Goods)
                 {
                     continue;
                 }
@@ -607,6 +598,9 @@ namespace Intex2021FagElGamous.Controllers
             return View(viewModel);
         }
 
+        
+
+
         public IActionResult ViewMummy(ViewBurialsBurialModel v)
         {
             // This is the burial we are looking at
@@ -629,112 +623,14 @@ namespace Intex2021FagElGamous.Controllers
             return View(vbvm);
         }
 
-        // ------------------------------ Restricted Section--------------------
+        // ------------------------------ Resricted Section--------------------
 
-        //edit quote allows for users to edit the quote and copies the quote they want to edit
-        public IActionResult EditMummy(ViewBurialViewModel mummy)
+        public IActionResult EditMummy(Burial b)
         {
-            //Console.WriteLine(mummy.BurialSite);
-            
-            ////Console.WriteLine(mummy.BurialSite.NS);
-
-
-
-            //FromEdit = true;
-            //MummyToDelete = mummy;
-            //Console.WriteLine(MummyToDelete);
-
-            //AddMummyViewModel newMummy = new AddMummyViewModel();
-
-            //Console.WriteLine(mummy.BurialSite.NS);
-            //newMummy.NS = mummy.BurialSite.NS;
-            //newMummy.Nstop = mummy.BurialSite.Nstop;
-            //newMummy.EW = mummy.BurialSite.EW;
-            //newMummy.Ewtop = mummy.BurialSite.Ewtop;
-            //newMummy.Quadrant = mummy.BurialSite.Quadrant;
-            //newMummy.BurialNumber = mummy.Burial.BurialNumber;
-            //newMummy.Burialwesttofeet = mummy.Burial.Burialwesttofeet;
-            //newMummy.Burialwesttohead = mummy.Burial.Burialwesttohead;
-            //newMummy.Burialsouthtofeet = mummy.Burial.Burialsouthtofeet;
-            //newMummy.Burialsouthtohead = mummy.Burial.Burialsouthtohead;
-            //newMummy.Burialdepth = mummy.Burial.Burialdepth;
-            //newMummy.Length = mummy.Burial.Length;
-            //newMummy.Goods = mummy.Burial.Goods;
-            //newMummy.Yearonskull = mummy.Burial.Yearonskull;
-            //newMummy.Monthonskull = mummy.Burial.Monthonskull;
-            //newMummy.DateonSkull = mummy.Burial.DateonSkull;
-            //newMummy.InitialsofDataEntryChecker = mummy.Burial.InitialsofDataEntryChecker;
-            //newMummy.InitialsofDataEntryExpert = mummy.Burial.InitialsofDataEntryExpert;
-            //newMummy.Byusample = mummy.Burial.Byusample;
-            //newMummy.BodyAnalysis = mummy.Burial.BodyAnalysis;
-            //newMummy.SkullatMagazine = mummy.Burial.SkullatMagazine;
-            //newMummy.PostcraniaatMagazine = mummy.Burial.PostcraniaatMagazine;
-            //newMummy.SexSkull2018 = mummy.Burial.SexSkull2018;
-            //newMummy.AgeSkull2018 = mummy.Burial.AgeSkull2018;
-            //newMummy.RackandShelf = mummy.Burial.RackandShelf;
-            //newMummy.Tobeconfirmed = mummy.Burial.Tobeconfirmed;
-            //newMummy.SkullTrauma = mummy.Burial.SkullTrauma;
-            //newMummy.PostcraniaTrauma = mummy.Burial.PostcraniaTrauma;
-            //newMummy.CribraOrbitala = mummy.Burial.CribraOrbitala;
-            //newMummy.PoroticHyperostosis = mummy.Burial.PoroticHyperostosis;
-            //newMummy.PoroticHyperostosisLocations = mummy.Burial.PoroticHyperostosisLocations;
-            //newMummy.MetopicSuture = mummy.Burial.MetopicSuture;
-            //newMummy.ButtonOsteoma = mummy.Burial.ButtonOsteoma;
-            //newMummy.Osteologyunknowncomment = mummy.Burial.Osteologyunknowncomment;
-            //newMummy.TemporalMandibularJointOsteoarthritisTmjoa = mummy.Burial.TemporalMandibularJointOsteoarthritisTmjoa;
-            //newMummy.LinearHypoplasiaEnamel = mummy.Burial.LinearHypoplasiaEnamel;
-            //newMummy.Yearexcav = mummy.Burial.Yearexcav;
-            //newMummy.MonthExcavated = mummy.Burial.MonthExcavated;
-            //newMummy.DateExcavated = mummy.Burial.DateExcavated;
-            //newMummy.Burialpreservation = mummy.Burial.Burialpreservation;
-            //newMummy.Burialwrapping = mummy.Burial.Burialwrapping;
-            //newMummy.Burialadultchild = mummy.Burial.Burialadultchild;
-            //newMummy.Burialgendermethod = mummy.Burial.Burialgendermethod;
-            //newMummy.AgeCodeSingle = mummy.Burial.AgeCodeSingle;
-            //newMummy.BurialDirection = mummy.Burial.BurialDirection;
-            //newMummy.Burialagemethod = mummy.Burial.Burialagemethod;
-            //newMummy.Burialageatdeath = mummy.Burial.Burialageatdeath;
-            //newMummy.HairColorCode = mummy.Burial.HairColorCode;
-            //newMummy.Burialsampletaken = mummy.Burial.Burialsampletaken;
-            //newMummy.LengthM = mummy.Burial.LengthM;
-            //newMummy.Cluster = mummy.Burial.Cluster;
-            //newMummy.FaceBundle = mummy.Burial.FaceBundle;
-            //newMummy.OsteologyNotes = mummy.Burial.OsteologyNotes;
+            Console.WriteLine("were in the edit mummy now bois");
 
             return View("Index");
-            //return View("AddBurial", newMummy);
         }
-
-        [HttpGet]        public IActionResult AddBiologicalSite()        {            if (GlobalStatic.role == "No Role")            {                return View("Index");            }            return View();        }        [HttpPost]        public IActionResult AddBiologicalSite(AddBiologicalViewModel biologicalsample)        {
-            //context.Add.Add(mummy);
-
-            //context.SaveChanges();
-            return View();        }
-
-
-        public IActionResult C14data()        {            if (GlobalStatic.role == "No Role")            {                return View("Index");            }            return View();        }        [HttpPost]        public IActionResult C14data(C14datum cdatum)        {
-            //context.Add.Add(mummy);
-
-            //context.SaveChanges();
-            return View("Index");        }
-
-        [HttpGet]
-        public IActionResult AddCranial()
-        {
-            if (GlobalStatic.role == "No Role")
-            {
-                return View("Index");
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddCranial(CranialMain cranialmain)
-        {
-            return View("Index");
-        }
-
 
         [HttpGet]
         public IActionResult AddFieldBook()
@@ -781,7 +677,6 @@ namespace Intex2021FagElGamous.Controllers
             return View("Index");
         }
 
-
         [HttpGet]
         public IActionResult AddBurial()
         {
@@ -793,23 +688,6 @@ namespace Intex2021FagElGamous.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult AddFiles()
-        {
-            if (GlobalStatic.role == "No Role")
-            {
-                return View("Index");
-            }
-
-            return View();
-        }
-        [HttpPost]
-        public IActionResult AddFiles(ViewBurialViewModel vbvm)
-        {
-            
-            return View();
-        }
-
         [HttpPost]
         public IActionResult AddBurial(AddMummyViewModel mummy)
         {
@@ -818,80 +696,7 @@ namespace Intex2021FagElGamous.Controllers
                 return View("Index");
             }
 
-            Console.WriteLine(mummy.NS);
-            Console.WriteLine(mummy.Nstop);
-            Console.WriteLine(mummy.EW);
-            Console.WriteLine(mummy.Ewtop);
-            Console.WriteLine(mummy.Quadrant);
-
-            string burialSiteId = context
-               .BurialSites
-               .FromSqlRaw("SELECT * FROM BurialSite WHERE [N/S] = {0} AND [NSTop] = {1} AND [E/W] = {2} AND EWTop = {3} AND Quadrant = {4}", mummy.NS, mummy.Nstop, mummy.EW, mummy.Ewtop, mummy.Quadrant)
-               .ToList()
-               .First()
-               .BurialSiteId.ToString();
-
-
-            int maxId = (int)context.Burials.Max(o => o.BurialKeyID);
-            int BurialKeyID = maxId + 1;
-
-            Burial burial = new Burial
-            {
-                BurialKeyID = BurialKeyID,
-                BurialSiteId = Convert.ToInt64(burialSiteId),
-                BurialNumber = mummy.BurialNumber,
-                Burialwesttohead = mummy.Burialwesttohead,
-                Burialwesttofeet = mummy.Burialwesttofeet,
-                Burialsouthtohead = mummy.Burialsouthtohead,
-                Burialsouthtofeet = mummy.Burialsouthtofeet,
-                Burialdepth = mummy.Burialdepth,
-                Length = mummy.Length,
-                Goods = mummy.Goods,
-                Yearonskull = mummy.Yearonskull,
-                Monthonskull = mummy.Monthonskull,
-                DateonSkull = mummy.DateonSkull,
-                InitialsofDataEntryChecker = mummy.InitialsofDataEntryChecker,
-                InitialsofDataEntryExpert = mummy.InitialsofDataEntryExpert,
-                Byusample = mummy.Byusample,
-                BodyAnalysis = mummy.BodyAnalysis,
-                SkullatMagazine = mummy.SkullatMagazine,
-                PostcraniaatMagazine = mummy.PostcraniaatMagazine,
-                SexSkull2018 = mummy.SexSkull2018,
-                AgeSkull2018 = mummy.AgeSkull2018,
-                RackandShelf = mummy.RackandShelf,
-                Tobeconfirmed = mummy.Tobeconfirmed,
-                SkullTrauma = mummy.SkullTrauma,
-                PostcraniaTrauma = mummy.PostcraniaTrauma,
-                CribraOrbitala = mummy.CribraOrbitala,
-                PoroticHyperostosis = mummy.PoroticHyperostosis,
-                PoroticHyperostosisLocations = mummy.PoroticHyperostosis,
-                MetopicSuture = mummy.MetopicSuture,
-                ButtonOsteoma = mummy.ButtonOsteoma,
-                TemporalMandibularJointOsteoarthritisTmjoa = mummy.TemporalMandibularJointOsteoarthritisTmjoa,
-                LinearHypoplasiaEnamel = mummy.LinearHypoplasiaEnamel,
-                Yearexcav = mummy.Yearexcav,
-                MonthExcavated = mummy.MonthExcavated,
-                DateExcavated = mummy.DateExcavated,
-                Burialpreservation = mummy.Burialpreservation,
-                Burialwrapping = mummy.Burialwrapping,
-                Burialadultchild = mummy.Burialadultchild,
-                Burialgendermethod = mummy.Burialgendermethod,
-                AgeCodeSingle = mummy.AgeCodeSingle,
-                BurialDirection = mummy.BurialDirection,
-                Burialageatdeath = mummy.Burialageatdeath,
-                Burialagemethod = mummy.Burialagemethod,
-                HairColorCode = mummy.HairColorCode,
-                Burialsampletaken = mummy.Burialsampletaken,
-                LengthM = mummy.LengthM,
-                Cluster = mummy.Cluster,
-                FaceBundle = mummy.FaceBundle,
-                OsteologyNotes = mummy.OsteologyNotes
-            };
-
-            context.Burials.Add(burial);
-            context.SaveChanges();
-
-            return View("Index");
+            return View();
         }
 
         public IActionResult Admin()
@@ -1384,11 +1189,8 @@ namespace Intex2021FagElGamous.Controllers
                 return View();
             }
 
-            Console.WriteLine(u.Email);
-
             List<User> Users = context.Users.ToList();
             if (Users.Count() < 1) {
-                ModelState.AddModelError(string.Empty, "Register before signing in");
                 return View("Index");
             }
 

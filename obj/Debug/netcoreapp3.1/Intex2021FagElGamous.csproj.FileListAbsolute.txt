@@ -529,3 +529,7 @@ C:/Users/jenna/Downloads/intexparty/Intex2021FagElGamous/obj/Debug/netcoreapp3.1
 /Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/C14data.cshtml.g.cs
 /Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddCranial.cshtml.g.cs
 /Users/addisonhoward/Documents/Winter 2021/IS 413/NewIntex/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddFiles.cshtml.g.cs
+/Users/trevorschmidt/Desktop/intex2.1/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddBiologicalSite.cshtml.g.cs
+/Users/trevorschmidt/Desktop/intex2.1/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddCranial.cshtml.g.cs
+/Users/trevorschmidt/Desktop/intex2.1/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddFiles.cshtml.g.cs
+/Users/trevorschmidt/Desktop/intex2.1/Intex2021FagElGamous/obj/Debug/netcoreapp3.1/Razor/Views/Home/C14data.cshtml.g.cs
