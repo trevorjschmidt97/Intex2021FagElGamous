@@ -601,6 +601,31 @@ namespace Intex2021FagElGamous.Controllers
         }
 
         // ------------------------------ Restricted Section--------------------
+        [HttpGet] public IActionResult AddBiologicalSite()
+        { if (GlobalStatic.role == "No Role")
+            {
+                return View("Index");
+            }
+            return View(); }
+
+        [HttpPost]
+        public IActionResult AddBiologicalSite(AddBiologicalViewModel biologicalsample)
+        {
+            //context.Add.Add(mummy);
+
+            //context.SaveChanges();
+            return View();
+        }        [HttpGet]        public IActionResult C14data() { if (GlobalStatic.role == "No Role") { return View("Index"); } return View(); }
+
+        [HttpPost]
+        public IActionResult C14data(C14datum cdatum)
+        {            if (GlobalStatic.role == "No Role") { return View("Index"); }            context.C14data.Add(cdatum);            context.SaveChanges();
+
+            //context.Add.Add(mummy);
+
+            //context.SaveChanges();
+            return View();
+        }
 
         public IActionResult EditMummy(Burial b)
         {
@@ -668,6 +693,8 @@ namespace Intex2021FagElGamous.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         public IActionResult AddBurial(AddMummyViewModel mummy)
         {
@@ -677,53 +704,53 @@ namespace Intex2021FagElGamous.Controllers
             }
 
 
+            Burial burial = new Burial();
 
-            Burial burial = new Burial
-            {
-                BurialSiteId = 8,
-                BurialWestToHead = Int32.Parse(mummy.Burialwesttohead),
-                BurialWestToFeet = Int32.Parse(mummy.Burialwesttofeet),
-                BurialSouthToHead = Int32.Parse(mummy.Burialsouthtohead),
-                BurialSouthToFeet = Int32.Parse(mummy.Burialsouthtofeet),
-                BurialDepth = Int32.Parse(mummy.Burialdepth),
-                Length = Int32.Parse(mummy.Length),
-                Goods = mummy.Goods,
-                YearOnSkull = Int32.Parse(mummy.Yearonskull),
-                MonthOnSkull = mummy.Monthonskull,
-                DateOnSkull = Int32.Parse(mummy.DateonSkull),
-                InitialsOfDataEntryChecker = mummy.InitialsofDataEntryChecker,
-                InitialsOfDataEntryExpert = mummy.InitialsofDataEntryExpert,
-                ByuSample = mummy.Byusample,
-                SkullAtMagazine = mummy.SkullatMagazine,
-                PostcraniaAtMagazine = mummy.PostcraniaatMagazine,
-                SexSkull = mummy.SexSkull2018,
-                AgeSkull = mummy.AgeSkull2018,
-                RackandShelf = mummy.RackandShelf,
-                SkullTrauma = mummy.SkullTrauma,
-                PostcraniaTrauma = mummy.PostcraniaTrauma,
-                CribraOrbitala = mummy.CribraOrbitala,
-                PoroticHyperostosis = mummy.PoroticHyperostosis,
-                PoroticHyperostosisLocations = mummy.PoroticHyperostosis,
-                MetopicSuture = mummy.MetopicSuture,
-                Tmjoa = mummy.TemporalMandibularJointOsteoarthritisTmjoa,
-                LinearHypoplasiaEnamel = mummy.LinearHypoplasiaEnamel,
-                YearExcav = Int32.Parse(mummy.Yearexcav),
-                MonthExcavated = mummy.MonthExcavated,
-                DateExcavated = Int32.Parse(mummy.DateExcavated),
-                BurialPreservation = mummy.Burialpreservation,
-                BurialWrapping = mummy.Burialwrapping,
-                BurialAdultChild = mummy.Burialadultchild,
-                AgeCodeSingle = mummy.AgeCodeSingle,
-                BurialDirection = mummy.BurialDirection,
-                Burialageatdeath = mummy.Burialageatdeath,
-                Burialagemethod = mummy.Burialagemethod,
-                HairColorCode = mummy.HairColorCode,
-                Burialsampletaken = mummy.Burialsampletaken,
-                LengthM = Int32.Parse(mummy.LengthM),
-                Cluster = mummy.Cluster,
-                FaceBundle = mummy.FaceBundle,
-                OsteologyNotes = mummy.OsteologyNotes
-            };
+            burial.BurialSiteId = 8;
+            burial.BurialWestToHead = Int32.Parse(mummy.Burialwesttohead);
+            burial.BurialWestToFeet = Int32.Parse(mummy.Burialwesttofeet);
+            burial.BurialSouthToHead = Int32.Parse(mummy.Burialsouthtohead);
+                burial.BurialSouthToFeet = Int32.Parse(mummy.Burialsouthtofeet);
+            burial.BurialDepth = Int32.Parse(mummy.Burialdepth);
+            burial.Length = Int32.Parse(mummy.Length);
+            burial.Goods = mummy.Goods;
+            burial.YearOnSkull = Int32.Parse(mummy.Yearonskull);
+            burial.MonthOnSkull = mummy.Monthonskull;
+            burial.DateOnSkull = Int32.Parse(mummy.DateonSkull);
+            burial.InitialsOfDataEntryChecker = mummy.InitialsofDataEntryChecker;
+            burial.InitialsOfDataEntryChecker = mummy.InitialsofDataEntryChecker;
+            burial.InitialsOfDataEntryExpert = mummy.InitialsofDataEntryExpert;
+            burial.ByuSample = mummy.Byusample;
+            burial.SkullAtMagazine = mummy.SkullatMagazine;
+            burial.PostcraniaAtMagazine = mummy.PostcraniaatMagazine;
+            burial.SexSkull = mummy.SexSkull2018;
+            burial.AgeSkull = mummy.AgeSkull2018;
+            burial.RackandShelf = mummy.RackandShelf;
+            burial.SkullTrauma = mummy.SkullTrauma;
+            burial.PostcraniaTrauma = mummy.PostcraniaTrauma;
+            burial.CribraOrbitala = mummy.CribraOrbitala;
+            burial.PoroticHyperostosis = mummy.PoroticHyperostosis;
+            burial.PoroticHyperostosisLocations = mummy.PoroticHyperostosis;
+            burial.MetopicSuture = mummy.MetopicSuture;
+            burial.Tmjoa = mummy.TemporalMandibularJointOsteoarthritisTmjoa;
+            burial.LinearHypoplasiaEnamel = mummy.LinearHypoplasiaEnamel;
+            burial.YearExcav = Int32.Parse(mummy.Yearexcav);
+            burial.MonthExcavated = mummy.MonthExcavated;
+            burial.DateExcavated = Int32.Parse(mummy.DateExcavated);
+            burial.BurialPreservation = mummy.Burialpreservation;
+            burial.BurialWrapping = mummy.Burialwrapping;
+            burial.BurialAdultChild = mummy.Burialadultchild;
+            burial.AgeCodeSingle = mummy.AgeCodeSingle;
+            burial.BurialDirection = mummy.BurialDirection;
+            burial.Burialageatdeath = mummy.Burialageatdeath;
+            burial.Burialagemethod = mummy.Burialagemethod;
+            burial.HairColorCode = mummy.HairColorCode;
+            burial.Burialsampletaken = mummy.Burialsampletaken;
+            burial.LengthM = Int32.Parse(mummy.LengthM);
+            burial.Cluster = mummy.Cluster;
+            burial.FaceBundle = mummy.FaceBundle;
+            burial.OsteologyNotes = mummy.OsteologyNotes;
+            
 
             context.Burials.Add(burial);
             context.SaveChanges();
