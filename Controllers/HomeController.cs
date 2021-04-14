@@ -716,7 +716,7 @@ namespace Intex2021FagElGamous.Controllers
             //context.Add.Add(mummy);
 
             //context.SaveChanges();
-            return View();        }
+            return View("Index");        }
 
         [HttpGet]
         public IActionResult AddCranial()
@@ -732,7 +732,7 @@ namespace Intex2021FagElGamous.Controllers
         [HttpPost]
         public IActionResult AddCranial(CranialMain cranialmain)
         {
-            return View();
+            return View("Index");
         }
 
 
@@ -778,7 +778,7 @@ namespace Intex2021FagElGamous.Controllers
             context.FieldBooks.Add(fieldBook);
             context.SaveChanges();
 
-            return View();
+            return View("Index");
         }
 
 
@@ -790,6 +790,23 @@ namespace Intex2021FagElGamous.Controllers
                 return View("Index");
             }
 
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddFiles()
+        {
+            if (GlobalStatic.role == "No Role")
+            {
+                return View("Index");
+            }
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddFiles(ViewBurialViewModel vbvm)
+        {
+            
             return View();
         }
 
@@ -874,7 +891,7 @@ namespace Intex2021FagElGamous.Controllers
             context.Burials.Add(burial);
             context.SaveChanges();
 
-            return View("ViewBurials");
+            return View("Index");
         }
 
         public IActionResult Admin()

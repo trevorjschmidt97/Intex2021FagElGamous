@@ -2,7 +2,7 @@
 @model AddMummyViewModel
 <!-- Page Content -->
 <header>
-    @*<link href="~/css/form.css" rel="stylesheet" />*@
+    
 </header>
 <div class="container">
     <!-- Page Heading/Breadcrumbs -->
@@ -17,15 +17,15 @@
 
                 <!-- NS -->
                 <div>
-                    <label asp-for="NS">N/S:</label>
-                    <input asp-for="NS" value="N" type="radio" /><span>N</span>
-                    <input asp-for="NS" value="S" type="radio" /><span>S</span>
+                    <label>N/S:</label>
+                    <input required asp-for="NS" value="N" type="radio" /><span>N</span>
+                    <input required asp-for="NS" value="S" type="radio" /><span>S</span>
                 </div>
 
                 <!-- NS Top -->
                 <div>
-                    <label asp-for="Nstop">N/S Coordinates:</label>
-                    <select asp-for="Nstop">
+                    <label required>N/S Coordinates:</label>
+                    <select required asp-for="Nstop">
 
                         <option value="0">0/10</option>
                         <option value="10">10/20</option>
@@ -54,14 +54,14 @@
 
                 <!-- EW -->
                 <div>
-                    <label asp-for="EW">E/W:</label>
-                    <input asp-for="EW" value="E" type="radio" /><span>E</span>
-                    <input asp-for="EW" value="W" type="radio" /><span>W</span>
+                    <label>E/W:</label>
+                    <input required asp-for="EW" value="E" type="radio" /><span>E</span>
+                    <input required asp-for="EW" value="W" type="radio" /><span>W</span>
                 </div>
 
                 <!-- EW Top -->
                 <div>
-                    <label asp-for="Ewtop">E/W Coordinates:</label>
+                    <label >E/W Coordinates:</label>
                     <select asp-for="Ewtop">
                         <option value="0">0/10</option>
                         <option value="10">10/20</option>
@@ -102,43 +102,43 @@
 
                 <!--Burial Number -->
                 <div class="form-group">
-                    <label asp-for="BurialNumber">Burial Number:</label>
+                    <label >Burial Number:</label>
                     <input class="form-control" required asp-for="BurialNumber" />
                 </div>
 
                 <!--South to Head-->
                 <div class="form-group">
-                    <label asp-for="Burialsouthtohead">South to Head:</label>
+                    <label >South to Head:</label>
                     <input class="form-control" required asp-for="Burialsouthtohead" />
                 </div>
 
                 <!--South to Feet-->
                 <div class="form-group">
-                    <label asp-for="Burialsouthtofeet">South to Feet:</label>
+                    <label >South to Feet:</label>
                     <input class="form-control" required asp-for="Burialsouthtofeet" />
                 </div>
 
                 <!--Burial West to Head-->
                 <div class="form-group">
-                    <label asp-for="Burialwesttohead">West to Head:</label>
+                    <label>West to Head:</label>
                     <input class="form-control" required asp-for="Burialwesttohead" />
                 </div>
 
                 <!--Burial West to Feet-->
                 <div class="form-group">
-                    <label asp-for="Burialwesttofeet">West to Feet:</label>
+                    <label>West to Feet:</label>
                     <input class="form-control" required asp-for="Burialwesttofeet" />
                 </div>
 
                 <!--Length-->
                 <div class="form-group">
-                    <label asp-for="Length">Length:</label>
+                    <label>Length:</label>
                     <input class="form-control" required asp-for="Length" />
                 </div>
 
                 <!--Burial Depth-->
                 <div class="form-group">
-                    <label asp-for="Burialdepth"> Burial Depth:</label>
+                    <label> Burial Depth:</label>
                     <input class="form-control" required asp-for="Burialdepth" />
                 </div>
 
@@ -314,7 +314,7 @@
 
                 <!--Burial Preservation-->
                 <div class="select-box">
-                    <label asp-for="Burialpreservation" class="label"><span class="label-desc">Burial Preservation</span> </label>
+                    <label class="label"><span class="label-desc">Burial Preservation</span> </label>
                     <select class="select" asp-for="Burialpreservation">
                         <option value="WW">Full or nearly full wrapping remains</option>
                         <option value="S">Well-Wrapped</option>
@@ -329,7 +329,7 @@
 
                 <!--Burial Wrapping-->
                 <div class="select-box">
-                    <label asp-for="Burialwrapping" class="label select-box1"><span class="label-desc">Burial Wrapping</span> </label>
+                    <label  class="label select-box1"><span class="label-desc">Burial Wrapping</span> </label>
                     <select class="select" asp-for="Burialwrapping">
                         <option value="W">Full or nearly full wrapping remains</option>
                         <option value="WW">Well-Wrapped</option>
@@ -345,7 +345,7 @@
 
                 <!--Burial Adult Child-->
                 <div class="select-box">
-                    <label asp-for="Burialadultchild" class="label select-box1"><span class="label-desc">Burial Adult Child</span> </label>
+                    <labe class="label select-box1"><span class="label-desc">Burial Adult Child</span> </labe>
                     <select class="select" asp-for="Burialadultchild">
                         <option value="A">Adult</option>
                         <option value="C">Any non adult including infant, child, juvenile, fetus</option>
@@ -354,7 +354,7 @@
 
                 <!--Burial Gender Method-->
                 <div class="select-box">
-                    <label asp-for="Burialgendermethod" class="label select-box1"><span class="label-desc">Burial Gender Method</span> </label>
+                    <label  class="label select-box1"><span class="label-desc">Burial Gender Method</span> </label>
                     <select class="select" asp-for="Burialgendermethod">
                         <option value="S">Skull</option>
                         <option value="P">Pelvis</option>
@@ -364,7 +364,7 @@
 
                 <!--Age Code Single-->
                 <div class="select-box">
-                    <label asp-for="AgeCodeSingle" class="label select-box1"><span class="label-desc">Age Code Single</span> </label>
+                    <label  class="label select-box1"><span class="label-desc">Age Code Single</span> </label>
                     <select class="select" asp-for="AgeCodeSingle">
                         <option value="A">Adult - year 15+</option>
                         <option value="C">Child - years 3-15</option>
@@ -375,7 +375,7 @@
                 </div>
                 <!--double check meaning of abbrev-->
                 <div class="select-box">
-                    <label asp-for="BurialDirection" class="label select-box1"><span class="label-desc">Burial Direction</span> </label>
+                    <label  class="label select-box1"><span class="label-desc">Burial Direction</span> </label>
                     <select class="select" asp-for="BurialDirection">
                         <option value="U">Unknown</option>
                         <option value="E">East</option>
@@ -385,17 +385,17 @@
 
                 <!--Burial Age at death-->
                 <div class="form-group">
-                    <label asp-for="Burialageatdeath">Burial Age at Death:</label>
+                    <label >Burial Age at Death:</label>
                     <input class="form-control" required asp-for="Burialageatdeath" />
                 </div>
                 <!--Burial age method-->
                 <div class="form-group">
-                    <label asp-for="Burialagemethod">Burial Age Method:</label>
+                    <label >Burial Age Method:</label>
                     <input class="form-control" required asp-for="Burialagemethod" />
                 </div>
                 <!--Hair color code -->
                 <div class="select-box">
-                    <label asp-for="HairColorCode" class="label select-box1"><span class="label-desc"></span> Hair Color Code:</label>
+                    <label class="label select-box1"><span class="label-desc"></span> Hair Color Code:</label>
                     <select class="select" asp-for="HairColorCode">
                         <option value="A">Adult - year 15+</option>
                         <option value="C">Child - years 3-15</option>
@@ -407,7 +407,7 @@
 
                 <!--Burial sample taken-->
                 <div class="form-group">
-                    <label asp-for="Burialsampletaken"><span>Burial sample taken: &emsp;</span></label>
+                    <label ><span>Burial sample taken: &emsp;</span></label>
                     <input asp-for="Burialsampletaken" value="Y" type="radio" /><span>Yes </span>
                     <input asp-for="Burialsampletaken" value="N" type="radio" checked /><span>No </span>
                     <input asp-for="Burialsampletaken" value="U" type="radio" /><span>Unknown </span>
@@ -415,13 +415,13 @@
 
                 <!--Length-->
                 <div class="form-group">
-                    <label asp-for="LengthM">LengthM:</label>
+                    <label >Length Of Body:</label>
                     <input class="form-control" required asp-for="LengthM" />
                 </div>
 
                 <!--Cluster-->
                 <div class="form-group">
-                    <label asp-for="Cluster">Cluster:</label>
+                    <label >Cluster:</label>
                     <input class="form-control" required asp-for="Cluster" />
                 </div>
 
@@ -441,21 +441,7 @@
                 </div>
                 <br />
                 <br />
-                <!-- Upload photo -->
-                <div class="panel">
-                    <div class="button_outer ">
-                        <div class="btn_upload">
-                            <input type="file">
-                            Upload Photo
-                        </div>
-                        <div class="processing_bar"></div>
-                        <div class="success_box"></div>
-                    </div>
-                </div>
-                <div class="error_msg"></div>
-                <div class="uploaded_file_view">
-                    <span class="file_remove">X</span>
-                </div>
+                
             </form>
         </div>
         <!----------------------------------------Start of Second Column ------------------------------------------>
@@ -765,14 +751,6 @@
                         </label>
                         <input asp-for="RackandShelf" type="text" tabindex="0" placeholder="2C.10" />
                     </fieldset>
-
-                    <!--Skull at Magazine -->
-                    <div class="form-group">
-                        <label asp-for="SkullatMagazine"><span>Skull At Magazine?&emsp;</span></label>
-                        <input asp-for="SkullatMagazine" value="Y" type="radio" /><span>Yes</span>
-                        <input asp-for="SkullatMagazine" value="N" type="radio" /><span>No</span>
-                        <input asp-for="SkullatMagazine" value="U" type="radio" checked /><span>Unknown</span>
-                    </div>
 
                     @*skull at magazine*@
                     <div>
